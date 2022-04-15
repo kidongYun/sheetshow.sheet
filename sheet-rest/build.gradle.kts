@@ -20,6 +20,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    compileOnly("mysql:mysql-connector-java")
+    testImplementation("com.h2database:h2")
 }
 
 tasks.withType<KotlinCompile> {
