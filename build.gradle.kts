@@ -24,6 +24,7 @@ allprojects {
     }
 
     repositories {
+        mavenLocal()
         mavenCentral()
     }
 
@@ -32,6 +33,8 @@ allprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+        implementation("org.kian.yun.sheetshow:filterable:0.0.1-SNAPSHOT")
     }
 
     tasks.withType<KotlinCompile> {
