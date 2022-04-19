@@ -23,6 +23,9 @@ class SheetController(
     override fun get(id: String): Response<SheetDto.Res>
     = Response.ofSuccess(sheetMapper.ofRes(sheetService.findById(toLong(id))))
 
+    override fun getList(pageable: Pageable): Response<List<SheetDto.Res>>
+    = Response.ofSuccess(sheetService.find(pageable).map { sheetMapper.ofRes(it) }.toList())
+
     override fun put(id: String, request: SheetDto.ReqPut): Response<SheetDto.Res>
     = Response.ofSuccess(sheetMapper.ofRes(sheetService.update(sheetMapper.ofEntity(id, request))))
 

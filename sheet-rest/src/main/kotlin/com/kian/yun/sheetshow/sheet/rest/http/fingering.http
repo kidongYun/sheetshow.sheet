@@ -10,6 +10,9 @@ Content-Type: application/json
 ### GET FINGERING
 GET http://{{host}}:{{port}}/api/v1/fingering/3
 
+### GET FINGERING LIST
+GET http://{{host}}:{{port}}/api/v1/fingering?page=0&size=10
+
 ### EMPTY QUERY ALL FINGERING
 POST http://{{host}}:{{port}}/api/v1/fingering/query?page=0&size=10
 Content-Type: application/json
