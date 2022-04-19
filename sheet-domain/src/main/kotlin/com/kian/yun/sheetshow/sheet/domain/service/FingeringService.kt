@@ -1,6 +1,5 @@
 package com.kian.yun.sheetshow.sheet.domain.service
 
-import com.kian.yun.sheetshow.filterable.Filterable
 import com.kian.yun.sheetshow.sheet.domain.entity.Fingering
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -17,5 +16,5 @@ interface FingeringService {
 
     fun delete(id: Long)
 
-    fun query(filterable: Filterable, pageable: Pageable) : List<Fingering>
+//    fun query(filterable: Filterable, pageable: Pageable) : List<Fingering>
 }

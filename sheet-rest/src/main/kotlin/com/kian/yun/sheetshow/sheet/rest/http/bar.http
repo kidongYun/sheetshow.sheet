@@ -1,0 +1,30 @@
+### POST BAR
+POST http://{{host}}:{{port}}/api/v1/bar
+Content-Type: application/json
+
+{
+  "no" : "1",
+  "lyrics" : "언제부턴가",
+  "fingeringId" : "1",
+  "sheetId" : "1"
+}
+
+### GET BAR
+GET http://{{host}}:{{port}}/api/v1/bar/1
+
+### GET BAR LIST
+GET http://{{host}}:{{port}}/api/v1/bar?page=0&size=10
+
+### PUT BAR
+PUT http://{{host}}:{{port}}/api/v1/bar/1
+Content-Type: application/json
+
+{
+  "no" : "2",
+  "lyrics" : "가끔 내 생각이",
+  "fingeringId" : "2",
+  "sheetId" : "2"
+}
+
+### DELETE BAR
+DELETE http://{{host}}:{{port}}/api/v1/bar/1

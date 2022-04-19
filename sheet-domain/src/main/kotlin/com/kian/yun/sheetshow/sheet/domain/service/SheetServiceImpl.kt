@@ -1,10 +1,7 @@
 package com.kian.yun.sheetshow.sheet.domain.service
 
-import com.kian.yun.sheetshow.filterable.Filterable
-import com.kian.yun.sheetshow.filterable.util.logger
 import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
-import com.kian.yun.sheetshow.sheet.domain.entity.QSheet
 import com.kian.yun.sheetshow.sheet.domain.entity.Sheet
 import com.kian.yun.sheetshow.sheet.domain.repository.SheetRepository
 import org.springframework.data.domain.Pageable
@@ -36,6 +33,6 @@ class SheetServiceImpl(
         sheetRepository.delete(this.findById(id))
     }
 
-    override fun query(filterable: Filterable, pageable: Pageable): List<Sheet>
-            = sheetRepository.findByFilterable(filterable, pageable, QSheet.sheet)
+//    override fun query(filterable: Filterable, pageable: Pageable): List<Sheet>
+//            = sheetRepository.findByFilterable(filterable, pageable, QSheet.sheet)
 }

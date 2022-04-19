@@ -1,0 +1,55 @@
+### POST SHEET
+POST http://{{host}}:{{port}}/api/v1/sheet
+Content-Type: application/json
+
+{
+  "name" : "별보러가자",
+  "author" : "적재",
+  "creatorEmail" : "s2mos2@naver.com"
+}
+
+### GET SHEET
+GET http://{{host}}:{{port}}/api/v1/sheet/9
+
+### EMPTY QUERY ALL SHEET
+POST http://{{host}}:{{port}}/api/v1/sheet/query?page=0&size=10
+Content-Type: application/json
+
+{
+  "conditions" : [
+    {
+      "target" : "",
+      "values" : [""],
+      "queryOption" : "like"
+    }
+  ],
+  "conditionOption" : "and"
+}
+
+### QUERY ALL SHEET
+POST http://{{host}}:{{port}}/api/v1/sheet/query?page=0&size=10
+Content-Type: application/json
+
+{
+  "conditions" : [
+    {
+      "target" : "name",
+      "values" : ["별보러", "가자"],
+      "queryOption" : "like"
+    }
+  ],
+  "conditionOption" : "or"
+}
+
+### PUT SHEET
+PUT http://{{host}}:{{port}}/api/v1/sheet/1
+Content-Type: application/json
+
+{
+  "name" : "it is up to you",
+  "author" : "yunhwadngdng",
+  "creatorEmail" : "hello@google.com"
+}
+
+### DELETE SHEET
+DELETE http://{{host}}:{{port}}/api/v1/sheet/1

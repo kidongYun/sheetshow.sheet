@@ -1,6 +1,5 @@
 package com.kian.yun.sheetshow.sheet.domain.service
 
-import com.kian.yun.sheetshow.filterable.Filterable
 import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.domain.entity.Fingering
@@ -33,6 +32,6 @@ class FingeringServiceImpl(
         fingeringRepository.delete(this.findById(id))
     }
 
-    override fun query(filterable: Filterable, pageable: Pageable): List<Fingering>
-    = fingeringRepository.findByFilterable(filterable, pageable, QFingering.fingering)
+//    override fun query(filterable: Filterable, pageable: Pageable): List<Fingering>
+//    = fingeringRepository.findByFilterable(filterable, pageable, QFingering.fingering)
 }

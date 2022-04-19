@@ -31,10 +31,12 @@ dependencies {
     // JPA
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.querydsl:querydsl-jpa")
-    testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    testImplementation("com.querydsl:querydsl-jpa")
     kapt(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
     compileOnly("mysql:mysql-connector-java")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    testImplementation("com.querydsl:querydsl-jpa")
+    kaptTest(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
     testImplementation("com.h2database:h2")
 }
 

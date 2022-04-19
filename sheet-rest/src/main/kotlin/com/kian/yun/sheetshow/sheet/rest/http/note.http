@@ -1,0 +1,28 @@
+### POST NOTE
+POST http://{{host}}:{{port}}/api/v1/note
+Content-Type: application/json
+
+{
+  "line" : "1",
+  "space" : "2",
+  "fingeringId" : "3"
+}
+
+### GET NOTE
+GET http://{{host}}:{{port}}/api/v1/note/1
+
+### GET NOTE LIST
+GET http://{{host}}:{{port}}/api/v1/note?page=0&size=10
+
+### PUT NOTE
+PUT http://{{host}}:{{port}}/api/v1/note/2
+Content-Type: application/json
+
+{
+  "line" : "3",
+  "space" : "4",
+  "fingeringId" : "6"
+}
+
+### DELETE NOTE
+DELETE http://{{host}}:{{port}}/api/v1/note/1

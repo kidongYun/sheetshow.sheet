@@ -1,0 +1,53 @@
+### POST FINGERING
+POST http://{{host}}:{{port}}/api/v1/fingering
+Content-Type: application/json
+
+{
+  "type" : "guitar",
+  "chord" : "CM"
+}
+
+### GET FINGERING
+GET http://{{host}}:{{port}}/api/v1/fingering/3
+
+### EMPTY QUERY ALL FINGERING
+POST http://{{host}}:{{port}}/api/v1/fingering/query?page=0&size=10
+Content-Type: application/json
+
+{
+  "conditions" : [
+    {
+      "target" : "",
+      "values" : [""],
+      "queryOption" : "like"
+    }
+  ],
+  "conditionOption" : "and"
+}
+
+### QUERY ALL FINGERING
+POST http://{{host}}:{{port}}/api/v1/fingering/query?page=0&size=10
+Content-Type: application/json
+
+{
+  "conditions" : [
+    {
+      "target" : "type",
+      "values" : ["gui", "pi"],
+      "queryOption" : "like"
+    }
+  ],
+  "conditionOption" : "or"
+}
+
+### PUT FINGERING
+PUT http://{{host}}:{{port}}/api/v1/fingering/1
+Content-Type: application/json
+
+{
+  "type" : "piano",
+  "chord" : "2"
+}
+
+### DELETE FINGERING
+DELETE http://{{host}}:{{port}}/api/v1/fingering/1
