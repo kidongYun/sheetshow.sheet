@@ -15,6 +15,36 @@ GET http://{{host}}:{{port}}/api/v1/bar/1
 ### GET BAR LIST
 GET http://{{host}}:{{port}}/api/v1/bar?page=0&size=10
 
+### EMPTY QUERY ALL BAR
+POST http://{{host}}:{{port}}/api/v1/bar/query?page=0&size=10
+Content-Type: application/json
+
+{
+  "conditions" : [
+    {
+      "target" : "",
+      "values" : [""],
+      "queryOption" : "like"
+    }
+  ],
+  "conditionOption" : "and"
+}
+
+### QUERY ALL BAR
+POST http://{{host}}:{{port}}/api/v1/bar/query?page=0&size=10
+Content-Type: application/json
+
+{
+  "conditions" : [
+    {
+      "target" : "lyrics",
+      "values" : ["언제", "가자"],
+      "queryOption" : "like"
+    }
+  ],
+  "conditionOption" : "or"
+}
+
 ### PUT BAR
 PUT http://{{host}}:{{port}}/api/v1/bar/1
 Content-Type: application/json

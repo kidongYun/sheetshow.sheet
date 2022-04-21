@@ -3,7 +3,10 @@ package com.kian.yun.sheetshow.sheet.domain.service
 import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.domain.entity.Note
+import com.kian.yun.sheetshow.sheet.domain.entity.QNote
+import com.kian.yun.sheetshow.sheet.domain.entity.QSheet
 import com.kian.yun.sheetshow.sheet.domain.repository.NoteRepository
+import com.kian.yun.sheetshow.sheet.domain.repository.support.Filterable
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -14,13 +17,13 @@ class NoteServiceImpl(
 ) : NoteService {
 
     override fun save(request: Note): Long
-            = noteRepository.save(request).id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
+    = noteRepository.save(request).id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
 
     override fun findById(id: Long): Note
-            = noteRepository.findByIdOrNull(id) ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
+    = noteRepository.findByIdOrNull(id) ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
 
     override fun find(pageable: Pageable): List<Note>
-            = noteRepository.findAll(pageable).toList()
+    = noteRepository.findAll(pageable).toList()
 
     override fun update(request: Note): Note {
         noteRepository.save(request)
@@ -30,4 +33,7 @@ class NoteServiceImpl(
     override fun delete(id: Long) {
         noteRepository.delete(this.findById(id))
     }
+
+    override fun query(filterable: Filterable, pageable: Pageable): List<Note>
+    = noteRepository.findByFilterable(filterable, pageable, QNote.note)
 }

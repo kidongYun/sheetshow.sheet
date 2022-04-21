@@ -2,7 +2,7 @@ package com.kian.yun.sheetshow.sheet.rest.controller
 
 import com.kian.yun.sheetshow.sheet.common.code.Response
 import com.kian.yun.sheetshow.sheet.rest.dto.FingeringDto
-import com.kian.yun.sheetshow.sheet.rest.dto.QueryDto
+import com.kian.yun.sheetshow.sheet.rest.dto.Filterable
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
 
@@ -23,5 +23,5 @@ interface FingeringSpec {
     fun delete(@PathVariable id: String) : Response<Void>
 
     @PostMapping("/query")
-    fun query(pageable: Pageable, @RequestBody request: QueryDto.Req) : Response<List<FingeringDto.Res>>
+    fun query(pageable: Pageable, @RequestBody filterable: Filterable) : Response<List<FingeringDto.Res>>
 }

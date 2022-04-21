@@ -4,7 +4,9 @@ import com.kian.yun.sheetshow.sheet.common.code.Response
 import com.kian.yun.sheetshow.sheet.common.util.toLong
 import com.kian.yun.sheetshow.sheet.domain.service.BarService
 import com.kian.yun.sheetshow.sheet.rest.dto.BarDto
+import com.kian.yun.sheetshow.sheet.rest.dto.Filterable
 import com.kian.yun.sheetshow.sheet.rest.mapper.BarMapper
+import com.kian.yun.sheetshow.sheet.rest.mapper.FilterableMapper
 
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/bar")
 class BarController(
+    private val filterableMapper: FilterableMapper,
     private val barMapper: BarMapper,
     private val barService: BarService
 ) : BarSpec {
@@ -33,4 +36,7 @@ class BarController(
         barService.delete(toLong(id))
         return Response.ofSuccess()
     }
+
+    override fun query(pageable: Pageable, filterable: Filterable): Response<List<BarDto.Res>>
+    = Response.ofSuccess(barService.query(filterableMapper.ofDomain(filterable), pageable).map { barMapper.ofRes(it) })
 }

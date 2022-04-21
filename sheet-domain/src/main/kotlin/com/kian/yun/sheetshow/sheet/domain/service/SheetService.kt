@@ -1,6 +1,7 @@
 package com.kian.yun.sheetshow.sheet.domain.service
 
 import com.kian.yun.sheetshow.sheet.domain.entity.Sheet
+import com.kian.yun.sheetshow.sheet.domain.repository.support.Filterable
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
@@ -18,5 +19,5 @@ interface SheetService {
 
     fun delete(id: Long)
 
-//    fun query(filterable: Filterable, pageable: Pageable) : List<Sheet>
+    fun query(filterable: Filterable, pageable: Pageable) : List<Sheet>
 }

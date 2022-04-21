@@ -14,6 +14,36 @@ GET http://{{host}}:{{port}}/api/v1/note/1
 ### GET NOTE LIST
 GET http://{{host}}:{{port}}/api/v1/note?page=0&size=10
 
+### EMPTY QUERY ALL NOTE
+POST http://{{host}}:{{port}}/api/v1/note/query?page=0&size=10
+Content-Type: application/json
+
+{
+  "conditions" : [
+    {
+      "target" : "",
+      "values" : [""],
+      "queryOption" : "like"
+    }
+  ],
+  "conditionOption" : "and"
+}
+
+### QUERY ALL NOTE
+POST http://{{host}}:{{port}}/api/v1/note/query?page=0&size=10
+Content-Type: application/json
+
+{
+  "conditions" : [
+    {
+      "target" : "name",
+      "values" : ["별보러", "가자"],
+      "queryOption" : "like"
+    }
+  ],
+  "conditionOption" : "or"
+}
+
 ### PUT NOTE
 PUT http://{{host}}:{{port}}/api/v1/note/2
 Content-Type: application/json

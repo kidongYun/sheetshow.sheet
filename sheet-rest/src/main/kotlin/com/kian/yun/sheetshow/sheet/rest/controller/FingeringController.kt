@@ -4,7 +4,8 @@ import com.kian.yun.sheetshow.sheet.common.code.Response
 import com.kian.yun.sheetshow.sheet.common.util.toLong
 import com.kian.yun.sheetshow.sheet.domain.service.FingeringService
 import com.kian.yun.sheetshow.sheet.rest.dto.FingeringDto
-import com.kian.yun.sheetshow.sheet.rest.dto.QueryDto
+import com.kian.yun.sheetshow.sheet.rest.dto.Filterable
+import com.kian.yun.sheetshow.sheet.rest.mapper.FilterableMapper
 import com.kian.yun.sheetshow.sheet.rest.mapper.FingeringMapper
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/fingering")
 class FingeringController(
+    private val filterableMapper: FilterableMapper,
     private val fingeringMapper: FingeringMapper,
     private val fingeringService: FingeringService
 ) : FingeringSpec {
@@ -34,8 +36,6 @@ class FingeringController(
         return Response.ofSuccess()
     }
 
-    override fun query(pageable: Pageable, request: QueryDto.Req): Response<List<FingeringDto.Res>> {
-        TODO("Not yet implemented")
-    }
-    //    = Response.ofSuccess(fingeringService.query(filterableMapper.ofDomain(request), pageable).map { fingeringMapper.ofRes(it) })
+    override fun query(pageable: Pageable, filterable: Filterable): Response<List<FingeringDto.Res>>
+    = Response.ofSuccess(fingeringService.query(filterableMapper.ofDomain(filterable), pageable).map { fingeringMapper.ofRes(it) })
 }

@@ -5,6 +5,7 @@ import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.domain.entity.Fingering
 import com.kian.yun.sheetshow.sheet.domain.entity.QFingering
 import com.kian.yun.sheetshow.sheet.domain.repository.FingeringRepository
+import com.kian.yun.sheetshow.sheet.domain.repository.support.Filterable
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -15,13 +16,13 @@ class FingeringServiceImpl(
 ) : FingeringService {
 
     override fun save(request: Fingering): Long
-            = fingeringRepository.save(request).id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
+    = fingeringRepository.save(request).id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
 
     override fun findById(id: Long): Fingering
-            = fingeringRepository.findByIdOrNull(id) ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
+    = fingeringRepository.findByIdOrNull(id) ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
 
     override fun find(pageable: Pageable): List<Fingering>
-            = fingeringRepository.findAll().toList()
+    = fingeringRepository.findAll().toList()
 
     override fun update(request: Fingering): Fingering {
         fingeringRepository.save(request)
@@ -32,6 +33,6 @@ class FingeringServiceImpl(
         fingeringRepository.delete(this.findById(id))
     }
 
-//    override fun query(filterable: Filterable, pageable: Pageable): List<Fingering>
-//    = fingeringRepository.findByFilterable(filterable, pageable, QFingering.fingering)
+    override fun query(filterable: Filterable, pageable: Pageable): List<Fingering>
+    = fingeringRepository.findByFilterable(filterable, pageable, QFingering.fingering)
 }

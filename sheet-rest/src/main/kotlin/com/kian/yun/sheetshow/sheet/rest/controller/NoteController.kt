@@ -3,7 +3,9 @@ package com.kian.yun.sheetshow.sheet.rest.controller
 import com.kian.yun.sheetshow.sheet.common.code.Response
 import com.kian.yun.sheetshow.sheet.common.util.toLong
 import com.kian.yun.sheetshow.sheet.domain.service.NoteService
+import com.kian.yun.sheetshow.sheet.rest.dto.Filterable
 import com.kian.yun.sheetshow.sheet.rest.dto.NoteDto
+import com.kian.yun.sheetshow.sheet.rest.mapper.FilterableMapper
 import com.kian.yun.sheetshow.sheet.rest.mapper.NoteMapper
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/note")
 class NoteController(
+    private val filterableMapper: FilterableMapper,
     private val noteMapper: NoteMapper,
     private val noteService: NoteService
 ) : NoteSpec {
@@ -32,4 +35,7 @@ class NoteController(
         noteService.delete(toLong(id))
         return Response.ofSuccess()
     }
+
+    override fun query(pageable: Pageable, filterable: Filterable): Response<List<NoteDto.Res>>
+    = Response.ofSuccess(noteService.query(filterableMapper.ofDomain(filterable), pageable).map { noteMapper.ofRes(it) })
 }

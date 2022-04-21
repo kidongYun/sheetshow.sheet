@@ -3,12 +3,12 @@ POST http://{{host}}:{{port}}/api/v1/fingering
 Content-Type: application/json
 
 {
-  "type" : "guitar",
-  "chord" : "CM"
+  "type" : "piano",
+  "chord" : "Cm"
 }
 
 ### GET FINGERING
-GET http://{{host}}:{{port}}/api/v1/fingering/3
+GET http://{{host}}:{{port}}/api/v1/fingering/1
 
 ### GET FINGERING LIST
 GET http://{{host}}:{{port}}/api/v1/fingering?page=0&size=10

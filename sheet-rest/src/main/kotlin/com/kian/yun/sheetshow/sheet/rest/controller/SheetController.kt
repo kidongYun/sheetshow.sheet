@@ -3,8 +3,9 @@ package com.kian.yun.sheetshow.sheet.rest.controller
 import com.kian.yun.sheetshow.sheet.common.code.Response
 import com.kian.yun.sheetshow.sheet.common.util.toLong
 import com.kian.yun.sheetshow.sheet.domain.service.SheetService
-import com.kian.yun.sheetshow.sheet.rest.dto.QueryDto
+import com.kian.yun.sheetshow.sheet.rest.dto.Filterable
 import com.kian.yun.sheetshow.sheet.rest.dto.SheetDto
+import com.kian.yun.sheetshow.sheet.rest.mapper.FilterableMapper
 import com.kian.yun.sheetshow.sheet.rest.mapper.SheetMapper
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/sheet")
 class SheetController(
+    private val filterableMapper: FilterableMapper,
     private val sheetMapper: SheetMapper,
     private val sheetService: SheetService
 ) : SheetSpec {
@@ -34,8 +36,6 @@ class SheetController(
         return Response.ofSuccess()
     }
 
-    override fun query(pageable: Pageable, request: QueryDto.Req): Response<List<SheetDto.Res>> {
-        TODO("Not yet implemented")
-    }
-//    = Response.ofSuccess(sheetService.query(filterableMapper.ofDomain(request), pageable).map { sheetMapper.ofRes(it) })
+    override fun query(pageable: Pageable, filterable: Filterable): Response<List<SheetDto.Res>>
+    = Response.ofSuccess(sheetService.query(filterableMapper.ofDomain(filterable), pageable).map { sheetMapper.ofRes(it) })
 }
