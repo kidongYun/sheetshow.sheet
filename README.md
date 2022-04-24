@@ -11,6 +11,7 @@
 - 
 ## 2022-04-24
 - sheet detail api
+- troubleshoot longQueryOptionProvider
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl

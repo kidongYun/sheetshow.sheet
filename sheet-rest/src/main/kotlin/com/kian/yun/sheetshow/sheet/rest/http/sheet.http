@@ -14,6 +14,9 @@ GET http://{{host}}:{{port}}/api/v1/sheet/1
 ### GET SHEET LIST
 GET http://{{host}}:{{port}}/api/v1/sheet?page=0&size=10
 
+### GET SHEET DETAIL
+GET http://{{host}}:{{port}}/api/v1/sheet/detail/2
+
 ### EMPTY QUERY ALL SHEET
 POST http://{{host}}:{{port}}/api/v1/sheet/query?page=0&size=10
 Content-Type: application/json

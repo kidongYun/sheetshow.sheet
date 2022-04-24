@@ -27,7 +27,7 @@ class FilterableRepositoryCustomImpl(
             .map { PathAdapters.aliasOf(it.type.simpleName).create(it) }
             .filter { it.toString() == condition.getTarget() }
             .forEach {
-                return QueryOptionProviders.aliasOf(qClass.type.getDeclaredField(condition.getTarget()).type.simpleName)
+                return QueryOptionProviders.aliasOf(qClass.type.getDeclaredField(condition.getTarget()).type.simpleName.replaceFirstChar { ch -> ch.uppercase() })
                     .query(condition.getValues(), it, condition.getQueryOptions())
             }
 

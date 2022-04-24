@@ -12,7 +12,6 @@ enum class QueryOptionProviders(
         override fun query(values: List<String>, path: Path<out Any>, queryOptions: QueryOptions): BooleanExpression
         = (path as StringPath).`in`(values)
     },
-
     StringQueryOptionProvider {
         override fun query(values: List<String>, path: Path<out Any>, queryOptions: QueryOptions): BooleanExpression {
             if(QueryOptions.EQUAL == queryOptions) {
@@ -34,11 +33,15 @@ enum class QueryOptionProviders(
             .map { value -> (path as StringPath).contains(value) }
             .reduce { acc, boolExp -> acc.or(boolExp) }
     },
-
     NumberQueryOptionProvider {
         override fun query(values: List<String>, path: Path<out Any>, queryOptions: QueryOptions): BooleanExpression
         = (path as NumberPath<Long>).`in`(values.map { it.toLong() })
-    };
+    },
+    LongQueryOptionProvider {
+        override fun query(values: List<String>, path: Path<out Any>, queryOptions: QueryOptions): BooleanExpression
+        = (path as NumberPath<Long>).`in`(values.map { it.toLong() })
+    }
+    ;
 
     companion object {
         fun aliasOf(alias : String) : QueryOptionProvider
