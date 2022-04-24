@@ -4,9 +4,10 @@ import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.domain.entity.Note
 import com.kian.yun.sheetshow.sheet.domain.entity.QNote
-import com.kian.yun.sheetshow.sheet.domain.entity.QSheet
 import com.kian.yun.sheetshow.sheet.domain.repository.NoteRepository
+import com.kian.yun.sheetshow.sheet.domain.repository.support.Condition
 import com.kian.yun.sheetshow.sheet.domain.repository.support.Filterable
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -36,4 +37,13 @@ class NoteServiceImpl(
 
     override fun query(filterable: Filterable, pageable: Pageable): List<Note>
     = noteRepository.findByFilterable(filterable, pageable, QNote.note)
+
+    override fun query(condition: Condition, pageable: Pageable): List<Note>
+    = noteRepository.findByCondition(condition, pageable, QNote.note)
+
+    override fun query(filterable: Filterable): List<Note>
+    = noteRepository.findByFilterable(filterable, PageRequest.of(0, 10), QNote.note)
+
+    override fun query(condition: Condition): List<Note>
+    = noteRepository.findByCondition(condition, PageRequest.of(0, 10), QNote.note)
 }

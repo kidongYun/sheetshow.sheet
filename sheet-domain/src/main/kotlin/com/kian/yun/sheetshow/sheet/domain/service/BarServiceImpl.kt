@@ -4,9 +4,10 @@ import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.domain.entity.Bar
 import com.kian.yun.sheetshow.sheet.domain.entity.QBar
-import com.kian.yun.sheetshow.sheet.domain.entity.QSheet
 import com.kian.yun.sheetshow.sheet.domain.repository.BarRepository
+import com.kian.yun.sheetshow.sheet.domain.repository.support.Condition
 import com.kian.yun.sheetshow.sheet.domain.repository.support.Filterable
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -36,4 +37,13 @@ class BarServiceImpl(
 
     override fun query(filterable: Filterable, pageable: Pageable): List<Bar>
     = barRepository.findByFilterable(filterable, pageable, QBar.bar)
+
+    override fun query(condition: Condition, pageable: Pageable): List<Bar>
+    = barRepository.findByCondition(condition, pageable, QBar.bar)
+
+    override fun query(filterable: Filterable): List<Bar>
+    = barRepository.findByFilterable(filterable, PageRequest.of(0, 10), QBar.bar)
+
+    override fun query(condition: Condition): List<Bar>
+    = barRepository.findByCondition(condition, PageRequest.of(0, 10), QBar.bar)
 }

@@ -19,4 +19,25 @@ class SheetDto {
         val author: String,
         val creatorEmail: String
     )
+
+    class Detail {
+        data class Res(
+            val id: String,
+            val name: String,
+            val author: String,
+            val creatorEmail: String,
+            val bars: List<Bar>
+        )
+
+        data class Bar(
+            val chord: String,
+            val lyrics: String,
+            val fingering: List<Note>
+        )
+
+        data class Note(
+            val line: String,
+            val space: String
+        )
+    }
 }

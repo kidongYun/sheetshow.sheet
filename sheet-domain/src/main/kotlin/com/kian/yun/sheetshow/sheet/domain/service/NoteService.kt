@@ -1,6 +1,7 @@
 package com.kian.yun.sheetshow.sheet.domain.service
 
 import com.kian.yun.sheetshow.sheet.domain.entity.Note
+import com.kian.yun.sheetshow.sheet.domain.repository.support.Condition
 import com.kian.yun.sheetshow.sheet.domain.repository.support.Filterable
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -18,4 +19,10 @@ interface NoteService {
     fun delete(id: Long)
 
     fun query(filterable: Filterable, pageable: Pageable) : List<Note>
+
+    fun query(condition: Condition, pageable: Pageable) : List<Note>
+
+    fun query(filterable: Filterable) : List<Note>
+
+    fun query(condition: Condition) : List<Note>
 }

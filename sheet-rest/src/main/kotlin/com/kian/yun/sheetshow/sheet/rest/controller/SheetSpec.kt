@@ -16,6 +16,9 @@ interface SheetSpec {
     @GetMapping
     fun getList(pageable: Pageable) : Response<List<SheetDto.Res>>
 
+    @GetMapping("/detail/{id}")
+    fun getDetail(@PathVariable id: String) : Response<SheetDto.Detail.Res>
+
     @PutMapping("/{id}")
     fun put(@PathVariable id: String, @RequestBody request: SheetDto.ReqPut) : Response<SheetDto.Res>
 

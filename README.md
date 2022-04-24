@@ -8,10 +8,18 @@
 ## 2022-04-21
 - arrange the way how to configure mysql in local
 - implements query api
+- 
+## 2022-04-24
+- sheet detail api
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl
 - query api with unknown target should be thrown unknown target exception.
+- build redis data storage for fingering entity.
+- how should encapsulate 100% about Filterable and Condition
+  - what i am saying is that i really wanna separate the consumer part and the producer part
+  - but from now on, my code the consumer part should know the implementation object of filterable or condition like simplecondition
+  - i want to hide it from the consumer. how should do it?
 
 ## CONFIGURATION PROJECT
 

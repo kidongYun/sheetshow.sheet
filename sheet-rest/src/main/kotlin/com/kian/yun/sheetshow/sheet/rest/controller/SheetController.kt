@@ -1,7 +1,16 @@
 package com.kian.yun.sheetshow.sheet.rest.controller
 
+import com.kian.yun.sheetshow.filterable.queryOptions.QueryOptions
 import com.kian.yun.sheetshow.sheet.common.code.Response
 import com.kian.yun.sheetshow.sheet.common.util.toLong
+import com.kian.yun.sheetshow.sheet.domain.entity.Bar
+import com.kian.yun.sheetshow.sheet.domain.entity.Fingering
+import com.kian.yun.sheetshow.sheet.domain.entity.Note
+import com.kian.yun.sheetshow.sheet.domain.entity.Sheet
+import com.kian.yun.sheetshow.sheet.domain.repository.support.SimpleCondition
+import com.kian.yun.sheetshow.sheet.domain.service.BarService
+import com.kian.yun.sheetshow.sheet.domain.service.FingeringService
+import com.kian.yun.sheetshow.sheet.domain.service.NoteService
 import com.kian.yun.sheetshow.sheet.domain.service.SheetService
 import com.kian.yun.sheetshow.sheet.rest.dto.Filterable
 import com.kian.yun.sheetshow.sheet.rest.dto.SheetDto
@@ -16,7 +25,10 @@ import org.springframework.web.bind.annotation.RestController
 class SheetController(
     private val filterableMapper: FilterableMapper,
     private val sheetMapper: SheetMapper,
-    private val sheetService: SheetService
+    private val sheetService: SheetService,
+    private val barService: BarService,
+    private val fingeringService: FingeringService,
+    private val noteService: NoteService
 ) : SheetSpec {
 
     override fun post(request: SheetDto.ReqPost): Response<Long>
@@ -27,6 +39,15 @@ class SheetController(
 
     override fun getList(pageable: Pageable): Response<List<SheetDto.Res>>
     = Response.ofSuccess(sheetService.find(pageable).map { sheetMapper.ofRes(it) }.toList())
+
+    override fun getDetail(id: String): Response<SheetDto.Detail.Res> {
+        val sheet: Sheet = sheetService.findById(toLong(id))
+        val bars: List<Bar> = barService.query(SimpleCondition.of("sheetId", listOf(sheet.id.toString()), QueryOptions.EQUAL))
+        val fingering: List<Fingering> = bars.map { fingeringService.findById(it.fingeringId) }
+        val notesOfFingerings: List<List<Note>> = fingering.map { noteService.query(SimpleCondition.of("fingeringId", listOf(it.id.toString()), QueryOptions.EQUAL)) }
+
+        return Response.ofSuccess(sheetMapper.ofDetailRes(sheet, bars, fingering, notesOfFingerings))
+    }
 
     override fun put(id: String, request: SheetDto.ReqPut): Response<SheetDto.Res>
     = Response.ofSuccess(sheetMapper.ofRes(sheetService.update(sheetMapper.ofEntity(id, request))))
