@@ -13,6 +13,7 @@
 - sheet detail api
 - troubleshoot longQueryOptionProvider
 - refactor fingering and note as a no entity
+- troubleshoot redishash setter unsupportedexception
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl

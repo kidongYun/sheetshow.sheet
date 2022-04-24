@@ -2,6 +2,7 @@ package com.kian.yun.sheetshow.sheet.rest.controller
 
 import com.kian.yun.sheetshow.filterable.queryOptions.QueryOptions
 import com.kian.yun.sheetshow.sheet.common.code.Response
+import com.kian.yun.sheetshow.sheet.common.util.logger
 import com.kian.yun.sheetshow.sheet.common.util.toLong
 import com.kian.yun.sheetshow.sheet.domain.entity.Bar
 import com.kian.yun.sheetshow.sheet.domain.entity.Fingering
@@ -39,9 +40,16 @@ class SheetController(
     = Response.ofSuccess(sheetService.find(pageable).map { sheetMapper.ofRes(it) }.toList())
 
     override fun getDetail(id: String): Response<SheetDto.Detail.Res> {
+        val log = logger()
+
         val sheet: Sheet = sheetService.findById(toLong(id))
+        log.info("YKD : {}", sheet)
+
         val bars: List<Bar> = barService.query(SimpleCondition.of("sheetId", listOf(sheet.id.toString()), QueryOptions.EQUAL))
+        log.info("YKD : {}", bars)
+
         val fingering: List<Fingering> = bars.map { fingeringService.findById(it.fingeringId) }
+        log.info("YKD : {}", fingering)
 
         return Response.ofSuccess(sheetMapper.ofDetailRes(sheet, bars, fingering))
     }

@@ -7,7 +7,7 @@ import javax.persistence.Id
 @RedisHash("fingering")
 class Fingering(
     @Id
-    val id: Long?,
+    var id: Long?,
 
     val type: String,
 

@@ -17,7 +17,7 @@ class FingeringServiceImpl(
     = fingeringRepository.save(request).id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
 
     override fun findById(id: Long): Fingering
-    = fingeringRepository.findByIdOrNull(id) ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
+    = fingeringRepository.findByIdOrNull(id) ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND, String.format("fingering of id '%s' is not found", id))
 
     override fun find(pageable: Pageable): List<Fingering>
     = fingeringRepository.findAll().toList()

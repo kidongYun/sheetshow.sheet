@@ -3,23 +3,43 @@ POST http://{{host}}:{{port}}/api/v1/fingering
 Content-Type: application/json
 
 {
-  "type" : "piano",
-  "chord" : "Cm"
+  "type" : "guitar",
+  "chord" : "Am",
+  "notes" : [
+    {
+      "line" : "2",
+      "space" : "7"
+    },
+    {
+      "line" : "3",
+      "space" : "7"
+    }
+  ]
 }
 
 ### GET FINGERING
-GET http://{{host}}:{{port}}/api/v1/fingering/1
+GET http://{{host}}:{{port}}/api/v1/fingering/-4229780812172121644
 
 ### GET FINGERING LIST
 GET http://{{host}}:{{port}}/api/v1/fingering?page=0&size=10
 
 ### PUT FINGERING
-PUT http://{{host}}:{{port}}/api/v1/fingering/1
+PUT http://{{host}}:{{port}}/api/v1/fingering/-4229780812172121644
 Content-Type: application/json
 
 {
-  "type" : "piano",
-  "chord" : "2"
+  "type" : "guitar",
+  "chord" : "Fm",
+  "notes" : [
+    {
+      "line" : "3",
+      "space" : "6"
+    },
+    {
+      "line" : "4",
+      "space" : "6"
+    }
+  ]
 }
 
 ### DELETE FINGERING

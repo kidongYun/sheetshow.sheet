@@ -37,23 +37,23 @@ Content-Type: application/json
 {
   "conditions" : [
     {
-      "target" : "lyrics",
-      "values" : ["언제", "가자"],
-      "queryOption" : "like"
+      "target" : "sheetId",
+      "values" : ["2"],
+      "queryOption" : "equal"
     }
   ],
   "conditionOption" : "or"
 }
 
 ### PUT BAR
-PUT http://{{host}}:{{port}}/api/v1/bar/1
+PUT http://{{host}}:{{port}}/api/v1/bar/6
 Content-Type: application/json
 
 {
-  "no" : "2",
-  "lyrics" : "가끔 내 생각이",
-  "fingeringId" : "2",
-  "sheetId" : "2"
+  "no": "6",
+  "lyrics": "룰 수 없",
+  "fingeringId": "-4229780812172121644",
+  "sheetId": "2"
 }
 
 ### DELETE BAR
