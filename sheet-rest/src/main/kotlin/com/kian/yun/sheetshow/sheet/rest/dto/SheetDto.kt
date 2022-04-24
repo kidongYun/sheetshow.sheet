@@ -30,9 +30,15 @@ class SheetDto {
         )
 
         data class Bar(
-            val chord: String,
+            val no: String,
             val lyrics: String,
-            val fingering: List<Note>
+            val fingering: Fingering
+        )
+
+        data class Fingering(
+            val type: String,
+            val chord: String,
+            val notes: List<Note>
         )
 
         data class Note(

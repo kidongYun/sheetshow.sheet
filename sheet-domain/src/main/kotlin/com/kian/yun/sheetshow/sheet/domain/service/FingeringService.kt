@@ -16,6 +16,4 @@ interface FingeringService {
     fun update(request: Fingering) : Fingering
 
     fun delete(id: Long)
-
-    fun query(filterable: Filterable, pageable: Pageable) : List<Fingering>
 }

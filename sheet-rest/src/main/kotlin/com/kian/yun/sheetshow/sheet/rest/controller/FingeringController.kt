@@ -35,7 +35,4 @@ class FingeringController(
         fingeringService.delete(toLong(id))
         return Response.ofSuccess()
     }
-
-    override fun query(pageable: Pageable, filterable: Filterable): Response<List<FingeringDto.Res>>
-    = Response.ofSuccess(fingeringService.query(filterableMapper.ofDomain(filterable), pageable).map { fingeringMapper.ofRes(it) })
 }

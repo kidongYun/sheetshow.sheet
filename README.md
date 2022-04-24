@@ -12,6 +12,7 @@
 ## 2022-04-24
 - sheet detail api
 - troubleshoot longQueryOptionProvider
+- refactor fingering and note as a no entity
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl

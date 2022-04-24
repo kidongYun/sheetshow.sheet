@@ -3,9 +3,7 @@ package com.kian.yun.sheetshow.sheet.domain.service
 import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.domain.entity.Fingering
-import com.kian.yun.sheetshow.sheet.domain.entity.QFingering
 import com.kian.yun.sheetshow.sheet.domain.repository.FingeringRepository
-import com.kian.yun.sheetshow.sheet.domain.repository.support.Filterable
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -32,7 +30,4 @@ class FingeringServiceImpl(
     override fun delete(id: Long) {
         fingeringRepository.delete(this.findById(id))
     }
-
-    override fun query(filterable: Filterable, pageable: Pageable): List<Fingering>
-    = fingeringRepository.findByFilterable(filterable, pageable, QFingering.fingering)
 }

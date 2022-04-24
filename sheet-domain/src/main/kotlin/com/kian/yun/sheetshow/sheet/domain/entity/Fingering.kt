@@ -1,17 +1,17 @@
 package com.kian.yun.sheetshow.sheet.domain.entity
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
+import com.kian.yun.sheetshow.sheet.domain.data.Note
+import org.springframework.data.redis.core.RedisHash
 import javax.persistence.Id
 
-@Entity
+@RedisHash("fingering")
 class Fingering(
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     val id: Long?,
 
     val type: String,
 
-    val chord: String
+    val chord: String,
+
+    val notes: List<Note>
 )

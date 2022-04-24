@@ -38,6 +38,10 @@ dependencies {
     testImplementation("com.querydsl:querydsl-jpa")
     kaptTest(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
     testImplementation("com.h2database:h2")
+
+    // REDIS
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
 }
 
 tasks.withType<KotlinCompile> {

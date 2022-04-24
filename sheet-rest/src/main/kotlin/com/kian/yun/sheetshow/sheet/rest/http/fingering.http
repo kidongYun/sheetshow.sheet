@@ -13,36 +13,6 @@ GET http://{{host}}:{{port}}/api/v1/fingering/1
 ### GET FINGERING LIST
 GET http://{{host}}:{{port}}/api/v1/fingering?page=0&size=10
 
-### EMPTY QUERY ALL FINGERING
-POST http://{{host}}:{{port}}/api/v1/fingering/query?page=0&size=10
-Content-Type: application/json
-
-{
-  "conditions" : [
-    {
-      "target" : "",
-      "values" : [""],
-      "queryOption" : "like"
-    }
-  ],
-  "conditionOption" : "and"
-}
-
-### QUERY ALL FINGERING
-POST http://{{host}}:{{port}}/api/v1/fingering/query?page=0&size=10
-Content-Type: application/json
-
-{
-  "conditions" : [
-    {
-      "target" : "type",
-      "values" : ["gui", "pi"],
-      "queryOption" : "like"
-    }
-  ],
-  "conditionOption" : "or"
-}
-
 ### PUT FINGERING
 PUT http://{{host}}:{{port}}/api/v1/fingering/1
 Content-Type: application/json

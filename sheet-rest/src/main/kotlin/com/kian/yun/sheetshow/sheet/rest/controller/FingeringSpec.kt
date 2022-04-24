@@ -21,7 +21,4 @@ interface FingeringSpec {
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: String) : Response<Void>
-
-    @PostMapping("/query")
-    fun query(pageable: Pageable, @RequestBody filterable: Filterable) : Response<List<FingeringDto.Res>>
 }
