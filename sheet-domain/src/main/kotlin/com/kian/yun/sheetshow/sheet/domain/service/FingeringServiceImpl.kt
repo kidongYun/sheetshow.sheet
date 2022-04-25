@@ -4,13 +4,15 @@ import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.domain.entity.Fingering
 import com.kian.yun.sheetshow.sheet.domain.repository.FingeringRepository
+import com.kian.yun.sheetshow.sheet.domain.repository.FingeringRepositoryAdapter
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
 class FingeringServiceImpl(
-    private val fingeringRepository: FingeringRepository
+    private val fingeringRepository: FingeringRepository,
+    private val fingeringRepositoryAdapter: FingeringRepositoryAdapter
 ) : FingeringService {
 
     override fun save(request: Fingering): Long
@@ -22,9 +24,8 @@ class FingeringServiceImpl(
     override fun find(pageable: Pageable): List<Fingering>
     = fingeringRepository.findAll().toList()
 
-    override fun findByChord(chord: String): List<Fingering> {
-        TODO("Not yet implemented")
-    }
+    override fun findByChord(chord: String): List<Fingering>
+    = fingeringRepositoryAdapter.findAllByChord(chord)
 
     override fun update(request: Fingering): Fingering {
         fingeringRepository.save(request)

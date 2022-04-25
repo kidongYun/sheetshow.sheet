@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/fingering")
 class FingeringController(
-    private val filterableMapper: FilterableMapper,
     private val fingeringMapper: FingeringMapper,
     private val fingeringService: FingeringService
 ) : FingeringSpec {
@@ -27,6 +26,9 @@ class FingeringController(
 
     override fun getList(pageable: Pageable): Response<List<FingeringDto.Res>>
     = Response.ofSuccess(fingeringService.find(pageable).map { fingeringMapper.ofRes(it) }.toList())
+
+    override fun getListByChord(chord: String): Response<List<FingeringDto.Res>>
+    = Response.ofSuccess(fingeringService.findByChord(chord).map { fingeringMapper.ofRes(it) }.toList())
 
     override fun put(id: String, request: FingeringDto.ReqPut): Response<FingeringDto.Res>
     = Response.ofSuccess(fingeringMapper.ofRes(fingeringService.update(fingeringMapper.ofEntity(id, request))))

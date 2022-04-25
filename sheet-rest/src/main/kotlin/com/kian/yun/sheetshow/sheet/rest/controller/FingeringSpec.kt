@@ -16,6 +16,9 @@ interface FingeringSpec {
     @GetMapping
     fun getList(pageable: Pageable) : Response<List<FingeringDto.Res>>
 
+    @GetMapping("/chord/{chord}")
+    fun getListByChord(@PathVariable chord: String) : Response<List<FingeringDto.Res>>
+
     @PutMapping("/{id}")
     fun put(@PathVariable id: String, @RequestBody request: FingeringDto.ReqPut) : Response<FingeringDto.Res>
 
