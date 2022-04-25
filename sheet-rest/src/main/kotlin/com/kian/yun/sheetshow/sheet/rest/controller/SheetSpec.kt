@@ -10,6 +10,9 @@ interface SheetSpec {
     @PostMapping
     fun post(@RequestBody request: SheetDto.ReqPost) : Response<Long>
 
+    @PostMapping("/detail")
+    fun postDetail(@RequestBody request: SheetDto.Detail.ReqPost) : Response<Long>
+
     @GetMapping("/{id}")
     fun get(@PathVariable id: String) : Response<SheetDto.Res>
 

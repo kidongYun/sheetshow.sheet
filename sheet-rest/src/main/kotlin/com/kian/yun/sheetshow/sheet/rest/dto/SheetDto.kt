@@ -21,6 +21,13 @@ class SheetDto {
     )
 
     class Detail {
+        data class ReqPost(
+            val name: String,
+            val author: String,
+            val creatorEmail: String,
+            val barEl: String
+        )
+
         data class Res(
             val id: String,
             val name: String,

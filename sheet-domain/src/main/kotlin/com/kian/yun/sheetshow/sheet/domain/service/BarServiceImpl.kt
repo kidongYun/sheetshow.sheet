@@ -2,6 +2,7 @@ package com.kian.yun.sheetshow.sheet.domain.service
 
 import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
+import com.kian.yun.sheetshow.sheet.domain.data.barEl.BarElParser
 import com.kian.yun.sheetshow.sheet.domain.entity.Bar
 import com.kian.yun.sheetshow.sheet.domain.entity.QBar
 import com.kian.yun.sheetshow.sheet.domain.repository.BarRepository
@@ -14,7 +15,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class BarServiceImpl(
-    private val barRepository: BarRepository
+    private val barRepository: BarRepository,
+    private val barElParser: BarElParser
 ) : BarService {
 
     override fun save(request: Bar): Long
@@ -46,4 +48,7 @@ class BarServiceImpl(
 
     override fun query(condition: Condition): List<Bar>
     = barRepository.findByCondition(condition, PageRequest.of(0, 10), QBar.bar)
+
+    override fun parse(barEl: String): List<Bar>
+    = barElParser.parse(barEl)
 }

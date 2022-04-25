@@ -25,4 +25,6 @@ interface BarService {
     fun query(filterable: Filterable) : List<Bar>
 
     fun query(condition: Condition) : List<Bar>
+
+    fun parse(barEl: String) : List<Bar>
 }

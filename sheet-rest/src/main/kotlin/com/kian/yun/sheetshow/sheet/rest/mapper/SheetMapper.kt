@@ -15,6 +15,9 @@ class SheetMapper {
     fun ofEntity(src: SheetDto.ReqPost) : Sheet
     = Sheet(null, src.name, src.author, src.creatorEmail)
 
+    fun ofEntity(src: SheetDto.Detail.ReqPost) : Sheet
+    = Sheet(null, src.name, src.author, src.creatorEmail)
+
     fun ofEntity(id: String, src: SheetDto.ReqPut) : Sheet
     = Sheet(toLong(id), src.name, src.author, src.creatorEmail)
 

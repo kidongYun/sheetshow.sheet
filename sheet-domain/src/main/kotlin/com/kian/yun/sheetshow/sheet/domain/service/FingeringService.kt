@@ -13,6 +13,8 @@ interface FingeringService {
 
     fun find(pageable: Pageable) : List<Fingering>
 
+    fun findByChord(chord: String) : List<Fingering>
+
     fun update(request: Fingering) : Fingering
 
     fun delete(id: Long)

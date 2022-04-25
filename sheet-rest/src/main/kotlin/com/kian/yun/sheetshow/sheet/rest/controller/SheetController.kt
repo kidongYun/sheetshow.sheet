@@ -33,6 +33,14 @@ class SheetController(
     override fun post(request: SheetDto.ReqPost): Response<Long>
     = Response.ofSuccess(sheetService.save(sheetMapper.ofEntity(request)))
 
+    override fun postDetail(request: SheetDto.Detail.ReqPost): Response<Long> {
+        val sheetId: Long = sheetService.save(sheetMapper.ofEntity(request))
+        val bars: List<Bar> = barService.parse(request.barEl)
+        bars.forEach { barService.save(it) }
+
+        return Response.ofSuccess(sheetId)
+    }
+
     override fun get(id: String): Response<SheetDto.Res>
     = Response.ofSuccess(sheetMapper.ofRes(sheetService.findById(toLong(id))))
 
@@ -40,16 +48,9 @@ class SheetController(
     = Response.ofSuccess(sheetService.find(pageable).map { sheetMapper.ofRes(it) }.toList())
 
     override fun getDetail(id: String): Response<SheetDto.Detail.Res> {
-        val log = logger()
-
         val sheet: Sheet = sheetService.findById(toLong(id))
-        log.info("YKD : {}", sheet)
-
         val bars: List<Bar> = barService.query(SimpleCondition.of("sheetId", listOf(sheet.id.toString()), QueryOptions.EQUAL))
-        log.info("YKD : {}", bars)
-
         val fingering: List<Fingering> = bars.map { fingeringService.findById(it.fingeringId) }
-        log.info("YKD : {}", fingering)
 
         return Response.ofSuccess(sheetMapper.ofDetailRes(sheet, bars, fingering))
     }

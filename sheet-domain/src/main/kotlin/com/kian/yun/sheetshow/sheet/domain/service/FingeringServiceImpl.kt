@@ -22,6 +22,10 @@ class FingeringServiceImpl(
     override fun find(pageable: Pageable): List<Fingering>
     = fingeringRepository.findAll().toList()
 
+    override fun findByChord(chord: String): List<Fingering> {
+        TODO("Not yet implemented")
+    }
+
     override fun update(request: Fingering): Fingering {
         fingeringRepository.save(request)
         return this.findById(request.id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND, "request.id is null"))
