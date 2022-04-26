@@ -14,14 +14,15 @@ class DefaultBarElParser : BarElParser {
         .filter { it.isNotBlank() }
         .map { it.substring(1, it.length - 1) }
 
-    override fun parseNo(barEl: String): List<String> {
-        val numOfVerticalLines : List<Int> = barEl.split(findNoRegex())
+    override fun parseNo(barEl: String): List<Long> {
+        val numOfVerticalLines : List<Long> = barEl.split(findNoRegex())
             .drop(1)
             .map { it.count { ch -> ch.toString() == "|" } }
+            .map { it.toLong() }
 
         return numOfVerticalLines.mapIndexed { index, _ ->
             numOfVerticalLines.subList(0, index).sumOf { it }
-        }.map { (it + 1).toString() }
+        }.map { (it + 1) }
     }
 
     private fun findLyricsRegex() : Regex

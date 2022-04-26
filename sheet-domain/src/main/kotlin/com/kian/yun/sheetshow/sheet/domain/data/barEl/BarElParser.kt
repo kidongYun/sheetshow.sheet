@@ -8,5 +8,5 @@ interface BarElParser {
 
     fun parseChords(barEl: String) : List<String>
 
-    fun parseNo(barEl: String) : List<String>
+    fun parseNo(barEl: String) : List<Long>
 }

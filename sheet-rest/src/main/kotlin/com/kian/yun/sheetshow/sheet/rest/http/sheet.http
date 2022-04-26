@@ -8,14 +8,25 @@ Content-Type: application/json
   "creatorEmail" : "s2mos2@naver.com"
 }
 
+### POST SHEET DETAIL
+POST http://{{host}}:{{port}}/api/v1/sheet/detail
+Content-Type: application/json
+
+{
+  "name" : "스물다섯 스물하나",
+  "author" : "자우림",
+  "creatorEmail" : "s2mos2@naver.com",
+  "barEl" : "|<E>바람에 날려 꽃이|<G>지는 계절엔|<Dm>아직도 너의 손을|<G>잡은 듯 그런 듯 해.|<C>그때는 아직 꽃이|<G>아름다운 걸|<Dm>지금처럼 사무치게|<G>알지 못했어.|<F>우~<G>너의|<Am>향기가<D>|<F>바람에 <G>실려 오네.|<Am>|<F>우~<G>영원할|<Am>줄 알았<D>던|<F>스물다섯, 스<G>물하|<C>나."
+}
+
 ### GET SHEET
 GET http://{{host}}:{{port}}/api/v1/sheet/1
 
 ### GET SHEET LIST
-GET http://{{host}}:{{port}}/api/v1/sheet?page=0&size=10
+GET http://{{host}}:{{port}}/api/v1/sheet?page=1&size=10
 
 ### GET SHEET DETAIL
-GET http://{{host}}:{{port}}/api/v1/sheet/detail/2
+GET http://{{host}}:{{port}}/api/v1/sheet/detail/17
 
 ### EMPTY QUERY ALL SHEET
 POST http://{{host}}:{{port}}/api/v1/sheet/query?page=0&size=10

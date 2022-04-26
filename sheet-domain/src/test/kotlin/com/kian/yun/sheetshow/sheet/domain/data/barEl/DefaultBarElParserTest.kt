@@ -1,6 +1,5 @@
 package com.kian.yun.sheetshow.sheet.domain.data.barEl
 
-import com.kian.yun.sheetshow.filterable.util.logger
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 
@@ -16,11 +15,8 @@ class DefaultBarElParserTest : BehaviorSpec() {
 
                 then("각 가사들이 각 bar 에 순서에 맞게 들어가야 한다") {
                     result.size shouldBe 5
-                    result[0] shouldBe "가나"
-                    result[1] shouldBe "다라마 바사"
-                    result[2] shouldBe "아자차카 "
-                    result[3] shouldBe "타파하"
-                    result[4] shouldBe ""
+                    listOf("가나", "다라마 바사", "아자차카 ", "타파하", "")
+                        .forEachIndexed { index, it ->  it shouldBe result[index] }
                 }
             }
 
@@ -29,11 +25,8 @@ class DefaultBarElParserTest : BehaviorSpec() {
 
                 then("각 코드들이 각 bar 에 순서에 맞게 들어가야 한다") {
                     result.size shouldBe 5
-                    result[0] shouldBe "E"
-                    result[1] shouldBe "Em"
-                    result[2] shouldBe "A"
-                    result[3] shouldBe "G"
-                    result[4] shouldBe "C"
+                    listOf("E", "Em", "A", "G", "C")
+                        .forEachIndexed { index, it -> it shouldBe result[index] }
                 }
             }
 
@@ -41,9 +34,7 @@ class DefaultBarElParserTest : BehaviorSpec() {
                 val result = defaultBarElParser.parseNo(barEl)
 
                 then("마디번호 'no' 는 모두 1 이 되어야 한다") {
-                    val log = logger()
-                    log.info("result : {}", result)
-                    result.forEach { it shouldBe "1" }
+                    result.forEach { it shouldBe 1L }
                 }
             }
         }
@@ -56,11 +47,8 @@ class DefaultBarElParserTest : BehaviorSpec() {
 
                 then("각 가사들이 각 bar 에 순서에 맞게 들어가야 한다") {
                     result.size shouldBe 5
-                    result[0] shouldBe "가나"
-                    result[1] shouldBe "다라마 바사"
-                    result[2] shouldBe "아자차카 "
-                    result[3] shouldBe "타파하"
-                    result[4] shouldBe ""
+                    listOf("가나", "다라마 바사", "아자차카 ", "타파하", "")
+                        .forEachIndexed { index, it ->  it shouldBe result[index] }
                 }
             }
 
@@ -69,11 +57,8 @@ class DefaultBarElParserTest : BehaviorSpec() {
 
                 then("각 코드들이 각 bar 에 순서에 맞게 들어가야 한다") {
                     result.size shouldBe 5
-                    result[0] shouldBe "E"
-                    result[1] shouldBe "Em"
-                    result[2] shouldBe "A"
-                    result[3] shouldBe "G"
-                    result[4] shouldBe "C"
+                    listOf("E", "Em", "A", "G", "C")
+                        .forEachIndexed { index, it -> it shouldBe result[index] }
                 }
             }
 
@@ -82,11 +67,8 @@ class DefaultBarElParserTest : BehaviorSpec() {
 
                 then("마디번호 'no' 는 수직선 개수에 맞추어 계산되어야 한다") {
                     result.size shouldBe 5
-                    result[0] shouldBe "1"
-                    result[1] shouldBe "2"
-                    result[2] shouldBe "3"
-                    result[3] shouldBe "4"
-                    result[4] shouldBe "4"
+                    listOf(1L, 2L, 3L, 4L, 4L)
+                        .forEachIndexed { index, it -> it shouldBe result[index] }
                 }
             }
         }
@@ -116,7 +98,7 @@ class DefaultBarElParserTest : BehaviorSpec() {
 
                 then("마디번호 'no' 는 수직선 개수에 맞추어 계산되어야 한다")  {
                     result.size shouldBe 22
-                    listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "9", "10", "10", "11", "11", "12", "13", "13", "14", "14", "15", "15", "16")
+                    listOf(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 9L, 10L, 10L, 11L, 11L, 12L, 13L, 13L, 14L, 14L, 15L, 15L, 16L)
                         .forEachIndexed { index, it -> it shouldBe result[index] }
                 }
             }

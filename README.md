@@ -22,6 +22,7 @@
 
 ## 2022-04-26
 - implements DefaultBarElParser
+- troubleshoot infinity call of sheet detail
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl
@@ -33,6 +34,7 @@
   - i want to hide it from the consumer. how should do it?
 - concern about transaction processing
 - create test redis environment with embedded redis
+- implements fingering and chord instances
 
 ## CONFIGURATION PROJECT
 

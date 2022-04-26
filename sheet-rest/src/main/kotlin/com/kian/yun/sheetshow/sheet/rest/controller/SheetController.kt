@@ -35,7 +35,7 @@ class SheetController(
 
     override fun postDetail(request: SheetDto.Detail.ReqPost): Response<Long> {
         val sheetId: Long = sheetService.save(sheetMapper.ofEntity(request))
-        val bars: List<Bar> = barService.parse(request.barEl)
+        val bars: List<Bar> = barService.parse(sheetId, request.barEl)
         bars.forEach { barService.save(it) }
 
         return Response.ofSuccess(sheetId)
