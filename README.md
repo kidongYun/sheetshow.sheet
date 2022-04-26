@@ -23,6 +23,7 @@
 ## 2022-04-26
 - implements DefaultBarElParser
 - troubleshoot infinity call of sheet detail
+- troubleshoot DefaultBarElParser
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl

@@ -5,17 +5,15 @@ import org.springframework.stereotype.Component
 @Component
 class DefaultBarElParser : BarElParser {
     override fun parseLyrics(barEl: String): List<String>
-    = barEl.split(findLyricsRegex())
+    = barEl.split(chordRegex())
         .map { it.filterNot { ch -> ch.toString() == "|" } }
         .drop(1)
 
     override fun parseChords(barEl: String): List<String>
-    = barEl.split(findChordRegex())
-        .filter { it.isNotBlank() }
-        .map { it.substring(1, it.length - 1) }
+    = chordRegex().findAll(barEl).map { it.value.substring(1, it.value.length-1) }.toList()
 
     override fun parseNo(barEl: String): List<Long> {
-        val numOfVerticalLines : List<Long> = barEl.split(findNoRegex())
+        val numOfVerticalLines : List<Long> = barEl.split(chordRegex())
             .drop(1)
             .map { it.count { ch -> ch.toString() == "|" } }
             .map { it.toLong() }
@@ -25,12 +23,6 @@ class DefaultBarElParser : BarElParser {
         }.map { (it + 1) }
     }
 
-    private fun findLyricsRegex() : Regex
-    = "(<([a-zA-Z]+)>)".toRegex()
-
-    private fun findChordRegex() : Regex
-    = "[^(<[a-zA-Z]+)>]".toRegex()
-
-    private fun findNoRegex() : Regex
-    = "(<([a-zA-Z]+)>)".toRegex()
+    private fun chordRegex() : Regex
+    = "<[a-zA-Z0-9#/]+>".toRegex()
 }

@@ -7,16 +7,16 @@ class DefaultBarElParserTest : BehaviorSpec() {
     private val defaultBarElParser : DefaultBarElParser = DefaultBarElParser()
 
     init {
-        given("<E>가나<Em>다라마 바사<A>아자차카 <G>타파하<C>") {
-            val barEl = "<E>가나<Em>다라마 바사<A>아자차카 <G>타파하<C>"
+        given("<Eb>Hearbeats fast<Bb/D>promises How<Gm>brave<F/A><Bb/D>Time") {
+            val barEl = "<Eb>Hearbeats fast<Bb/D>promises How<Gm>brave<F/A><Bb/D>Time";
 
-            `when`("parseLyrics()") {
+            `when`("parsrLyrics()") {
                 val result = defaultBarElParser.parseLyrics(barEl)
 
                 then("각 가사들이 각 bar 에 순서에 맞게 들어가야 한다") {
                     result.size shouldBe 5
-                    listOf("가나", "다라마 바사", "아자차카 ", "타파하", "")
-                        .forEachIndexed { index, it ->  it shouldBe result[index] }
+                    listOf("Hearbeats fast", "promises How", "brave", "", "Time")
+                        .forEachIndexed { index, it -> it shouldBe result[index] }
                 }
             }
 
@@ -25,7 +25,40 @@ class DefaultBarElParserTest : BehaviorSpec() {
 
                 then("각 코드들이 각 bar 에 순서에 맞게 들어가야 한다") {
                     result.size shouldBe 5
-                    listOf("E", "Em", "A", "G", "C")
+                    listOf("Eb", "Bb/D", "Gm", "F/A", "Bb/D")
+                        .forEachIndexed { index, it -> it shouldBe result[index] }
+                }
+            }
+
+            `when`("parseNo()") {
+                val result = defaultBarElParser.parseNo(barEl)
+
+                then("마디번호 'no' 는 모두 1 이 되어야 한다") {
+                    result.size shouldBe 5
+                    result.forEach { it shouldBe 1L }
+                }
+            }
+        }
+
+        given("<E>가나<Em/G>다라마 바사<A>아자차카 <G#7/B#>타파하<C><D>감차") {
+            val barEl = "<E>가나<Em/G>다라마 바사<A>아자차카 <G#7/B#>타파하<C><D>감차"
+
+            `when`("parseLyrics()") {
+                val result = defaultBarElParser.parseLyrics(barEl)
+
+                then("각 가사들이 각 bar 에 순서에 맞게 들어가야 한다") {
+                    result.size shouldBe 6
+                    listOf("가나", "다라마 바사", "아자차카 ", "타파하", "", "감차")
+                        .forEachIndexed { index, it ->  it shouldBe result[index] }
+                }
+            }
+
+            `when`("parseChords()") {
+                val result = defaultBarElParser.parseChords(barEl)
+
+                then("각 코드들이 각 bar 에 순서에 맞게 들어가야 한다") {
+                    result.size shouldBe 6
+                    listOf("E", "Em/G", "A", "G#7/B#", "C", "D")
                         .forEachIndexed { index, it -> it shouldBe result[index] }
                 }
             }
