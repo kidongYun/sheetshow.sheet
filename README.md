@@ -20,6 +20,9 @@
 - create barelperser
 - implements fingeringByChord api
 
+## 2022-04-26
+- implements DefaultBarElParser
+
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl
 - query api with unknown target should be thrown unknown target exception.

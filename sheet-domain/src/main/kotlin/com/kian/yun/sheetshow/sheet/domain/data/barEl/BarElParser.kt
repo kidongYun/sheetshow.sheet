@@ -1,9 +1,12 @@
 package com.kian.yun.sheetshow.sheet.domain.data.barEl
 
-import com.kian.yun.sheetshow.sheet.domain.entity.Bar
 import org.springframework.stereotype.Component
 
 @Component
 interface BarElParser {
-    fun parse(barEl : String) : List<Bar>
+    fun parseLyrics(barEl: String) : List<String>
+
+    fun parseChords(barEl: String) : List<String>
+
+    fun parseNo(barEl: String) : List<String>
 }

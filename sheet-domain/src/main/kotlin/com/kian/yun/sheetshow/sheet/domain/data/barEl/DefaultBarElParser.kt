@@ -1,27 +1,27 @@
 package com.kian.yun.sheetshow.sheet.domain.data.barEl
 
-import com.kian.yun.sheetshow.filterable.util.logger
-import com.kian.yun.sheetshow.sheet.domain.entity.Bar
 import org.springframework.stereotype.Component
 
 @Component
 class DefaultBarElParser : BarElParser {
-    override fun parse(barEl: String): List<Bar> {
-        val log = logger()
+    override fun parseLyrics(barEl: String): List<String>
+    = barEl.split(findLyricsRegex())
+        .map { it.filterNot { ch -> ch.toString() == "|" } }
+        .drop(1)
 
-        val lyrics : List<String> = barEl.split(findLyricsRegex())
+    override fun parseChords(barEl: String): List<String>
+    = barEl.split(findChordRegex())
+        .filter { it.isNotBlank() }
+        .map { it.substring(1, it.length - 1) }
+
+    override fun parseNo(barEl: String): List<String> {
+        val numOfVerticalLines : List<Int> = barEl.split(findNoRegex())
             .drop(1)
+            .map { it.count { ch -> ch.toString() == "|" } }
 
-        log.info("lyrics : {}", lyrics)
-
-        var chords : List<String> = barEl.split(findChordRegex())
-            .filter { it.isNotBlank() }
-
-        log.info("chords : {}", chords)
-
-        return lyrics.mapIndexed { index, lyric ->
-            Bar(null, 1, lyric, 1, 1)
-        }
+        return numOfVerticalLines.mapIndexed { index, _ ->
+            numOfVerticalLines.subList(0, index).sumOf { it }
+        }.map { (it + 1).toString() }
     }
 
     private fun findLyricsRegex() : Regex
@@ -29,4 +29,7 @@ class DefaultBarElParser : BarElParser {
 
     private fun findChordRegex() : Regex
     = "[^(<[a-zA-Z]+)>]".toRegex()
+
+    private fun findNoRegex() : Regex
+    = "(<([a-zA-Z]+)>)".toRegex()
 }

@@ -26,5 +26,5 @@ interface BarService {
 
     fun query(condition: Condition) : List<Bar>
 
-    fun parse(barEl: String) : List<Bar>
+    fun parse(sheetId: Long, barEl: String) : List<Bar>
 }

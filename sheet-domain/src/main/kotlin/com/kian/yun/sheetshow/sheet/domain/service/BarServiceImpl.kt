@@ -4,6 +4,7 @@ import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.domain.data.barEl.BarElParser
 import com.kian.yun.sheetshow.sheet.domain.entity.Bar
+import com.kian.yun.sheetshow.sheet.domain.entity.Fingering
 import com.kian.yun.sheetshow.sheet.domain.entity.QBar
 import com.kian.yun.sheetshow.sheet.domain.repository.BarRepository
 import com.kian.yun.sheetshow.sheet.domain.repository.support.Condition
@@ -16,7 +17,8 @@ import org.springframework.stereotype.Service
 @Service
 class BarServiceImpl(
     private val barRepository: BarRepository,
-    private val barElParser: BarElParser
+    private val barElParser: BarElParser,
+    private val fingeringService: FingeringService
 ) : BarService {
 
     override fun save(request: Bar): Long
@@ -49,6 +51,13 @@ class BarServiceImpl(
     override fun query(condition: Condition): List<Bar>
     = barRepository.findByCondition(condition, PageRequest.of(0, 10), QBar.bar)
 
-    override fun parse(barEl: String): List<Bar>
-    = barElParser.parse(barEl)
+    override fun parse(sheetId: Long, barEl: String): List<Bar> {
+        val lyrics : List<String> = barElParser.parseLyrics(barEl)
+        val fingerings : List<Fingering> = barElParser.parseChords(barEl)
+            .map { fingeringService.findByChord(it).first() }
+
+        return lyrics.mapIndexed { index, lyric ->
+            Bar(null, 1, lyric, fingerings[index].id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND), sheetId)
+        }
+    }
 }
