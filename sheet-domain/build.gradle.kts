@@ -41,7 +41,8 @@ dependencies {
 
     // REDIS
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
-
+    testImplementation("org.springframework.boot:spring-boot-starter-data-redis")
+    testImplementation("it.ozimov:embedded-redis:0.7.3")
 }
 
 tasks.withType<KotlinCompile> {

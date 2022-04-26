@@ -2,11 +2,9 @@ package com.kian.yun.sheetshow.sheet.rest.controller
 
 import com.kian.yun.sheetshow.filterable.queryOptions.QueryOptions
 import com.kian.yun.sheetshow.sheet.common.code.Response
-import com.kian.yun.sheetshow.sheet.common.util.logger
 import com.kian.yun.sheetshow.sheet.common.util.toLong
 import com.kian.yun.sheetshow.sheet.domain.entity.Bar
 import com.kian.yun.sheetshow.sheet.domain.entity.Fingering
-import com.kian.yun.sheetshow.sheet.domain.data.Note
 import com.kian.yun.sheetshow.sheet.domain.entity.Sheet
 import com.kian.yun.sheetshow.sheet.domain.repository.support.SimpleCondition
 import com.kian.yun.sheetshow.sheet.domain.service.BarService
@@ -19,6 +17,7 @@ import com.kian.yun.sheetshow.sheet.rest.mapper.SheetMapper
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import javax.transaction.Transactional
 
 @RestController
 @RequestMapping("/api/v1/sheet")
@@ -33,6 +32,7 @@ class SheetController(
     override fun post(request: SheetDto.ReqPost): Response<Long>
     = Response.ofSuccess(sheetService.save(sheetMapper.ofEntity(request)))
 
+    @Transactional
     override fun postDetail(request: SheetDto.Detail.ReqPost): Response<Long> {
         val sheetId: Long = sheetService.save(sheetMapper.ofEntity(request))
         val bars: List<Bar> = barService.parse(sheetId, request.barEl)
