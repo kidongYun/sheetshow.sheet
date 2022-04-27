@@ -29,6 +29,7 @@
 - concern about transaction processing
 - configure redis for test environment
 - troubleshoot bootJar error
+- build the test environment
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl
@@ -57,7 +58,17 @@
 > mysql -u root -p
 Enter password : <password>
 
-> CREATE DATABASE sheetshow
+> CREATE DATABASE sheetshow;
+```
+
+### REDIS
+
+```
+> docker pull redis
+
+> docker run -p 6379:6379 --name sheetshow-redis-container -d redis
+
+> docker exec -i -t redis_boot redis-cli
 ```
 
 ### MYSQL KOREAN ENCODING
