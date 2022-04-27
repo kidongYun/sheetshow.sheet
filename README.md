@@ -24,6 +24,8 @@
 - implements DefaultBarElParser
 - troubleshoot infinity call of sheet detail
 - troubleshoot DefaultBarElParser
+
+## 2022-04-27
 - concern about transaction processing
 - configure redis for test environment
 

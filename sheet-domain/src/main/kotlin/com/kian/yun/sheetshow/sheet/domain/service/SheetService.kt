@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service
 interface SheetService {
     fun save(request: Sheet) : Long
 
+    fun saveDetail(sheet: Sheet, barEl: String) : Long
+
     fun findById(id: Long) : Sheet
 
     fun find() : List<Sheet>

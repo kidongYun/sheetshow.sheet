@@ -1,7 +1,9 @@
 package com.kian.yun.sheetshow.sheet.domain.service
 
+import com.kian.yun.sheetshow.sheet.common.code.Response
 import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
+import com.kian.yun.sheetshow.sheet.domain.entity.Bar
 import com.kian.yun.sheetshow.sheet.domain.entity.QSheet
 import com.kian.yun.sheetshow.sheet.domain.entity.Sheet
 import com.kian.yun.sheetshow.sheet.domain.repository.SheetRepository
@@ -9,13 +11,25 @@ import com.kian.yun.sheetshow.sheet.domain.repository.support.Filterable
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 
 @Service
 class SheetServiceImpl(
-    private val sheetRepository: SheetRepository
+    private val sheetRepository: SheetRepository,
+    private val barService: BarService
 ) : SheetService {
     override fun save(request: Sheet): Long
     = sheetRepository.save(request).id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
+
+    @Transactional
+    override fun saveDetail(sheet: Sheet, barEl: String): Long {
+        val sheetId: Long = this.save(sheet)
+
+        val bars: List<Bar> = barService.parse(sheetId, barEl)
+        bars.forEach { barService.save(it) }
+
+        return sheetId
+    }
 
     override fun findById(id: Long): Sheet
     = sheetRepository.findByIdOrNull(id) ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)

@@ -17,7 +17,6 @@ import com.kian.yun.sheetshow.sheet.rest.mapper.SheetMapper
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.transaction.Transactional
 
 @RestController
 @RequestMapping("/api/v1/sheet")
@@ -32,14 +31,8 @@ class SheetController(
     override fun post(request: SheetDto.ReqPost): Response<Long>
     = Response.ofSuccess(sheetService.save(sheetMapper.ofEntity(request)))
 
-    @Transactional
-    override fun postDetail(request: SheetDto.Detail.ReqPost): Response<Long> {
-        val sheetId: Long = sheetService.save(sheetMapper.ofEntity(request))
-        val bars: List<Bar> = barService.parse(sheetId, request.barEl)
-        bars.forEach { barService.save(it) }
-
-        return Response.ofSuccess(sheetId)
-    }
+    override fun postDetail(request: SheetDto.Detail.ReqPost): Response<Long>
+    = Response.ofSuccess(sheetService.saveDetail(sheetMapper.ofEntity(request), request.barEl))
 
     override fun get(id: String): Response<SheetDto.Res>
     = Response.ofSuccess(sheetMapper.ofRes(sheetService.findById(toLong(id))))

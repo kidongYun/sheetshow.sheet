@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 
 @Service
 class BarServiceImpl(
@@ -51,11 +52,12 @@ class BarServiceImpl(
     override fun query(condition: Condition): List<Bar>
     = barRepository.findByCondition(condition, PageRequest.of(0, 50), QBar.bar)
 
+    @Transactional
     override fun parse(sheetId: Long, barEl: String): List<Bar> {
         val lyrics : List<String> = barElParser.parseLyrics(barEl)
         val fingerings : List<Fingering> = barElParser.parseChords(barEl)
             .map { fingeringService.findByChord(it).firstOrNull()
-                ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND, "Fingering matching with chord '${it}'is not found") }
+                ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND, "Fingering matching with chord '${it}' is not found") }
         val no : List<Long> = barElParser.parseNo(barEl)
 
         return lyrics.mapIndexed { index, lyric ->
