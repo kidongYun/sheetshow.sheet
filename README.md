@@ -28,6 +28,7 @@
 ## 2022-04-27
 - concern about transaction processing
 - configure redis for test environment
+- troubleshoot bootJar error
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl

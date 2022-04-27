@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("org.springframework.boot") version "2.6.6"
@@ -10,6 +11,10 @@ plugins {
     kotlin("plugin.jpa") version kotlinVersion
     kotlin("plugin.allopen") version kotlinVersion
     kotlin("kapt") version "1.3.61"
+}
+
+tasks.named<BootJar>("bootJar") {
+    enabled = false
 }
 
 allprojects {
