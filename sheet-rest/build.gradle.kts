@@ -49,3 +49,7 @@ tasks.named<BootJar>("bootJar") {
     enabled = true
     mainClass.set("com.kian.yun.sheetshow.sheet.rest.SheetRestApplication")
 }
+
+tasks.named<Jar>("jar") {
+    enabled = false
+}
