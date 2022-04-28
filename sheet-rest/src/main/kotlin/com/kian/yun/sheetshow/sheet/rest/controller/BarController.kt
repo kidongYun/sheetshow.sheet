@@ -1,6 +1,6 @@
 package com.kian.yun.sheetshow.sheet.rest.controller
 
-import com.kian.yun.sheetshow.sheet.common.code.Response
+import com.kian.yun.sheetshow.sheet.rest.code.Response
 import com.kian.yun.sheetshow.sheet.common.util.toLong
 import com.kian.yun.sheetshow.sheet.domain.service.BarService
 import com.kian.yun.sheetshow.sheet.rest.dto.BarDto
