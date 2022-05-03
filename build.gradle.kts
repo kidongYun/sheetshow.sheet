@@ -13,10 +13,6 @@ plugins {
     kotlin("kapt") version "1.3.61"
 }
 
-tasks.named<BootJar>("bootJar") {
-    enabled = false
-}
-
 allprojects {
     group = "com.kian.yun.sheetshow"
     version = "0.0.1-SNAPSHOT"
@@ -55,4 +51,8 @@ allprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
+}
+
+tasks.named<BootJar>("bootJar") {
+    enabled = false
 }
