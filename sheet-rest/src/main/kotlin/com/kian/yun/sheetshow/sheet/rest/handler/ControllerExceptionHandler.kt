@@ -1,6 +1,6 @@
 package com.kian.yun.sheetshow.sheet.rest.handler
 
-import com.kian.yun.sheetshow.sheet.common.code.Response
+import com.kian.yun.sheetshow.sheet.rest.code.Response
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice

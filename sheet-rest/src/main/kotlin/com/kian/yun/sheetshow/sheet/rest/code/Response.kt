@@ -1,5 +1,6 @@
-package com.kian.yun.sheetshow.sheet.common.code
+package com.kian.yun.sheetshow.sheet.rest.code
 
+import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 
 data class Response<T>(
