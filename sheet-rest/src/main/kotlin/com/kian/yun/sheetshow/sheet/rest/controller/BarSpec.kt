@@ -10,6 +10,9 @@ interface BarSpec {
     @PostMapping
     fun post(@RequestBody request: BarDto.ReqPost) : Response<Long>
 
+    @PostMapping("/el/{id}")
+    fun postByEl(@PathVariable id: String, @RequestBody request: BarDto.El.ReqPost) : Response<Long>
+
     @GetMapping("/{id}")
     fun get(@PathVariable id: String) : Response<BarDto.Res>
 
@@ -18,6 +21,9 @@ interface BarSpec {
 
     @PutMapping("/{id}")
     fun put(@PathVariable id: String, @RequestBody request: BarDto.ReqPut) : Response<BarDto.Res>
+
+    @PutMapping("/el/{id}")
+    fun putByEl(@PathVariable id: String, @RequestBody request: BarDto.El.ReqPut) : Response<Long>
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: String) : Response<Void>

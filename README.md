@@ -44,6 +44,7 @@
 - create test redis environment with embedded redis
 - implements fingering and chord instances
 - sheet should have new column named 'status'
+- Troubleshoot GET sheet list api return empty list.
 
 ## CONFIGURATION PROJECT
 

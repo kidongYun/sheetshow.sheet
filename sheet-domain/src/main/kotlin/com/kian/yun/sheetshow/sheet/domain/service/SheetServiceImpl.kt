@@ -23,9 +23,7 @@ class SheetServiceImpl(
     @Transactional
     override fun saveDetail(sheet: Sheet, barEl: String): Long {
         val sheetId: Long = this.save(sheet)
-        barService.parse(sheetId, barEl).forEach { barService.save(it) }
-
-        return sheetId
+        return barService.saveByEl(sheetId, barEl)
     }
 
     override fun findById(id: Long): Sheet
@@ -45,10 +43,7 @@ class SheetServiceImpl(
     @Transactional
     override fun updateDetail(sheet: Sheet, barEl: String): Long {
         val sheetId: Long = this.update(sheet).id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND, "updated id '${sheet.id}' is not found from sheet repository")
-
-        barService.parse(sheetId, barEl).forEach { barService.save(it) }
-
-        return sheetId
+        return barService.updateByEl(sheetId, barEl)
     }
 
     override fun delete(id: Long) {

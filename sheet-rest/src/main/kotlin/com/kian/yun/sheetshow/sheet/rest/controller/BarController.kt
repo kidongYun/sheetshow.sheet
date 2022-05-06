@@ -23,6 +23,9 @@ class BarController(
     override fun post(request: BarDto.ReqPost): Response<Long>
     = Response.ofSuccess(barService.save(barMapper.ofEntity(request)))
 
+    override fun postByEl(id: String, request: BarDto.El.ReqPost): Response<Long>
+    = Response.ofSuccess(barService.saveByEl(toLong(id), request.barEl))
+
     override fun get(id: String): Response<BarDto.Res>
     = Response.ofSuccess(barMapper.ofRes(barService.findById(toLong(id))))
 
@@ -31,6 +34,9 @@ class BarController(
 
     override fun put(id: String, request: BarDto.ReqPut): Response<BarDto.Res>
     = Response.ofSuccess(barMapper.ofRes(barService.update(barMapper.ofEntity(id, request))))
+
+    override fun putByEl(id: String, request: BarDto.El.ReqPut): Response<Long>
+    = Response.ofSuccess(barService.updateByEl(toLong(id), request.barEl))
 
     override fun delete(id: String): Response<Void> {
         barService.delete(toLong(id))

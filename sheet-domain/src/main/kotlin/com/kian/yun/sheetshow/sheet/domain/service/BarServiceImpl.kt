@@ -1,6 +1,5 @@
 package com.kian.yun.sheetshow.sheet.domain.service
 
-import com.kian.yun.sheetshow.filterable.util.logger
 import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.domain.data.barEl.BarElParser
@@ -26,6 +25,12 @@ class BarServiceImpl(
     override fun save(request: Bar): Long
     = barRepository.save(request).id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
 
+    @Transactional
+    override fun saveByEl(sheetId: Long, barEl: String): Long {
+        this.parse(sheetId, barEl).forEach { this.save(it) }
+        return sheetId
+    }
+
     override fun findById(id: Long): Bar
     = barRepository.findByIdOrNull(id) ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
 
@@ -33,14 +38,22 @@ class BarServiceImpl(
     = barRepository.findAll(pageable).toList()
 
     override fun update(request: Bar): Bar {
-        val log = logger()
-        log.info("YKD : request.id : {}, request.no : {}, request.lyrics : {}, request.fingeringId : {}", request.id, request.no, request.lyrics, request.fingeringId)
         barRepository.save(request)
         return this.findById(request.id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND, "request.id is null"))
     }
 
+    @Transactional
+    override fun updateByEl(sheetId: Long, barEl: String): Long {
+        deleteAllBySheetId(sheetId)
+        return this.saveByEl(sheetId, barEl)
+    }
+
     override fun delete(id: Long) {
         barRepository.delete(this.findById(id))
+    }
+
+    override fun deleteAllBySheetId(sheetId: Long) {
+         barRepository.deleteAllBySheetId(sheetId)
     }
 
     override fun query(filterable: Filterable, pageable: Pageable): List<Bar>

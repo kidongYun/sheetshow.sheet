@@ -10,13 +10,19 @@ import org.springframework.stereotype.Service
 interface BarService {
     fun save(request: Bar) : Long
 
+    fun saveByEl(sheetId: Long, barEl: String) : Long
+
     fun findById(id: Long) : Bar
 
     fun find(pageable: Pageable) : List<Bar>
 
     fun update(request: Bar) : Bar
 
+    fun updateByEl(sheetId: Long, barEl: String) : Long
+
     fun delete(id: Long)
+
+    fun deleteAllBySheetId(sheetId: Long)
 
     fun query(filterable: Filterable, pageable: Pageable) : List<Bar>
 
