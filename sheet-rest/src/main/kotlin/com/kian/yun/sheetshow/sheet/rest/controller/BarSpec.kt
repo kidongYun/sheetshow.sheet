@@ -13,6 +13,9 @@ interface BarSpec {
     @PostMapping("/el/{id}")
     fun postByEl(@PathVariable id: String, @RequestBody request: BarDto.El.ReqPost) : Response<Long>
 
+    @PostMapping("/el")
+    fun getListByEl(@RequestBody request: BarDto.El.Req) : Response<List<BarDto.El.Res>>
+
     @GetMapping("/{id}")
     fun get(@PathVariable id: String) : Response<BarDto.Res>
 

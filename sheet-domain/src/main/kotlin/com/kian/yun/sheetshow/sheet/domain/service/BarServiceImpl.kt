@@ -68,8 +68,10 @@ class BarServiceImpl(
     override fun query(condition: Condition): List<Bar>
     = barRepository.findByCondition(condition, PageRequest.of(0, 50), QBar.bar)
 
-    @Transactional
-    override fun parse(sheetId: Long, barEl: String): List<Bar> {
+    override fun parse(sheetId: Long, barEl: String): List<Bar>
+    = this.parse(barEl).map { Bar(null, it.no, it.lyrics, it.fingeringId, sheetId) }
+
+    override fun parse(barEl: String): List<Bar> {
         val lyrics : List<String> = barElParser.parseLyrics(barEl)
         val fingerings : List<Fingering> = barElParser.parseChords(barEl)
             .map { fingeringService.findByChord(it).firstOrNull()
@@ -77,7 +79,7 @@ class BarServiceImpl(
         val no : List<Long> = barElParser.parseNo(barEl)
 
         return lyrics.mapIndexed { index, lyric ->
-            Bar(null, no[index], lyric, fingerings[index].id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND), sheetId)
+            Bar(null, no[index], lyric, fingerings[index].id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND), 0)
         }
     }
 }
