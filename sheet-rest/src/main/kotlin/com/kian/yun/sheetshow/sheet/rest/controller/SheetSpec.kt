@@ -25,6 +25,9 @@ interface SheetSpec {
     @PutMapping("/{id}")
     fun put(@PathVariable id: String, @RequestBody request: SheetDto.ReqPut) : Response<SheetDto.Res>
 
+    @PutMapping("/detail/{id}")
+    fun putDetail(@PathVariable id: String, @RequestBody request: SheetDto.Detail.ReqPut) : Response<Long>
+
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: String) : Response<Void>
 

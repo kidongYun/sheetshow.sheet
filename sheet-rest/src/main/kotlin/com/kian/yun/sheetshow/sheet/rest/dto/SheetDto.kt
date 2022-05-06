@@ -28,6 +28,13 @@ class SheetDto {
             val barEl: String
         )
 
+        data class ReqPut(
+            val name: String,
+            val author: String,
+            val creatorEmail: String,
+            val barEl: String
+        )
+
         data class Res(
             val id: String,
             val name: String,

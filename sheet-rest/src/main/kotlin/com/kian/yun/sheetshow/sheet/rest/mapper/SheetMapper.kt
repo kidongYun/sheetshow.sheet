@@ -21,6 +21,9 @@ class SheetMapper {
     fun ofEntity(id: String, src: SheetDto.ReqPut) : Sheet
     = Sheet(toLong(id), src.name, src.author, src.creatorEmail)
 
+    fun ofEntity(id: String, src: SheetDto.Detail.ReqPut) : Sheet
+    = Sheet(toLong(id), src.name, src.author, src.creatorEmail)
+
     fun ofRes(src: Sheet) : SheetDto.Res {
         val id: Long = src.id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
         return SheetDto.Res(id.toString(), src.name, src.author, src.creatorEmail)

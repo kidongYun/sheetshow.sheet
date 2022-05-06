@@ -1,5 +1,6 @@
 package com.kian.yun.sheetshow.sheet.domain.service
 
+import com.kian.yun.sheetshow.filterable.util.logger
 import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.domain.data.barEl.BarElParser
@@ -32,6 +33,8 @@ class BarServiceImpl(
     = barRepository.findAll(pageable).toList()
 
     override fun update(request: Bar): Bar {
+        val log = logger()
+        log.info("YKD : request.id : {}, request.no : {}, request.lyrics : {}, request.fingeringId : {}", request.id, request.no, request.lyrics, request.fingeringId)
         barRepository.save(request)
         return this.findById(request.id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND, "request.id is null"))
     }

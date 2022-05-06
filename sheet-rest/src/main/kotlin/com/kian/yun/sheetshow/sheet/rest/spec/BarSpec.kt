@@ -1,4 +1,0 @@
-package com.kian.yun.sheetshow.sheet.rest.spec
-
-interface BarSpec {
-}

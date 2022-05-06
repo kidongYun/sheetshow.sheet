@@ -51,6 +51,9 @@ class SheetController(
     override fun put(id: String, request: SheetDto.ReqPut): Response<SheetDto.Res>
     = Response.ofSuccess(sheetMapper.ofRes(sheetService.update(sheetMapper.ofEntity(id, request))))
 
+    override fun putDetail(id: String, request: SheetDto.Detail.ReqPut): Response<Long>
+    = Response.ofSuccess(sheetService.updateDetail(sheetMapper.ofEntity(id, request), request.barEl))
+
     override fun delete(id: String): Response<Void> {
         sheetService.delete(toLong(id))
         return Response.ofSuccess()

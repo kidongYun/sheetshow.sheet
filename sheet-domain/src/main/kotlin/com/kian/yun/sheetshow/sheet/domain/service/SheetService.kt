@@ -19,6 +19,8 @@ interface SheetService {
 
     fun update(request: Sheet) : Sheet
 
+    fun updateDetail(sheet: Sheet, barEl: String) : Long
+
     fun delete(id: Long)
 
     fun query(filterable: Filterable, pageable: Pageable) : List<Sheet>
