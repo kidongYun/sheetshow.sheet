@@ -11,6 +11,9 @@ enum class SheetCode(
     NUMBER_FORMAT_PARSE_FAILED("CM1002", "NumberFormatException is occurred."),
 
     /* QUERYDSL */
-    CONDITION_IS_NOT_MATCHED("QL1000", "condition is not matched")
+    CONDITION_IS_NOT_MATCHED("QL1000", "condition is not matched"),
+
+    /* BAR EL PARSING */
+    VERTICAL_LINE_IN_NOT_EXISTED("BP1000", "vertical line should contain to generate bar parser but it is not existed")
     ;
 }

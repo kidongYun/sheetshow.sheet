@@ -1,26 +1,39 @@
 package com.kian.yun.sheetshow.sheet.domain.data.barEl
 
+import com.kian.yun.sheetshow.sheet.common.code.SheetCode
+import com.kian.yun.sheetshow.sheet.common.exception.SheetException
+import com.kian.yun.sheetshow.sheet.domain.dto.BarDto
 import org.springframework.stereotype.Component
 
 @Component
 class DefaultBarElParser : BarElParser {
-    override fun parseLyrics(barEl: String): List<String>
-    = barEl.split(chordRegex())
-        .map { it.filterNot { ch -> ch.toString() == "|" } }
-        .drop(1)
+    override fun parse(barEl: String): List<BarDto.Parser>
+    = parseByBar(barEl).entries.associate { it.key to parseByChord(it.value) }.entries
+        .map { bar -> bar.value.entries
+            .map { chord -> BarDto.Parser(bar.key.toString(), chord.value, chord.key) }
+        }.flatten()
 
-    override fun parseChords(barEl: String): List<String>
-    = chordRegex().findAll(barEl).map { it.value.substring(1, it.value.length-1) }.toList()
+    private fun parseByChord(barEl: String) : Map<String, String> {
+        val lyrics : List<String> = barEl.split(chordRegex()).drop(1)
+        val chords : List<String> = chordRegex().findAll(barEl).map { it.value.substring(1, it.value.length-1) }.toList()
 
-    override fun parseNo(barEl: String): List<Long> {
-        val numOfVerticalLines : List<Long> = barEl.split(chordRegex())
-            .drop(1)
-            .map { it.count { ch -> ch.toString() == "|" } }
-            .map { it.toLong() }
+        if(lyrics.isEmpty() && chords.isEmpty()) {
+            return mapOf("" to barEl)
+        }
 
-        return numOfVerticalLines.mapIndexed { index, _ ->
-            numOfVerticalLines.subList(0, index).sumOf { it }
-        }.map { (it + 1) }
+        return chords.mapIndexed { index, it -> it to lyrics[index] }.toMap()
+    }
+
+    private fun parseByBar(barEl: String) : Map<Long, String> {
+        if(!barEl.contains("|")) {
+            throw SheetException(SheetCode.VERTICAL_LINE_IN_NOT_EXISTED, "barEl '$barEl' doesn't have '|' letter")
+        }
+        val splitByBar : List<String> = barEl.split("|")
+
+        return splitByBar
+            .subList(1, splitByBar.size)
+            .mapIndexed { index, it -> (index + 1).toLong() to it }
+            .toMap()
     }
 
     private fun chordRegex() : Regex

@@ -4,7 +4,6 @@ import com.kian.yun.sheetshow.sheet.common.code.SheetCode
 import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.domain.data.barEl.BarElParser
 import com.kian.yun.sheetshow.sheet.domain.entity.Bar
-import com.kian.yun.sheetshow.sheet.domain.entity.Fingering
 import com.kian.yun.sheetshow.sheet.domain.entity.QBar
 import com.kian.yun.sheetshow.sheet.domain.repository.BarRepository
 import com.kian.yun.sheetshow.sheet.domain.repository.support.Condition
@@ -72,14 +71,16 @@ class BarServiceImpl(
     = this.parse(barEl).map { Bar(null, it.no, it.lyrics, it.fingeringId, sheetId) }
 
     override fun parse(barEl: String): List<Bar> {
-        val lyrics : List<String> = barElParser.parseLyrics(barEl)
-        val fingerings : List<Fingering> = barElParser.parseChords(barEl)
-            .map { fingeringService.findByChord(it).firstOrNull()
-                ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND, "Fingering matching with chord '${it}' is not found") }
-        val no : List<Long> = barElParser.parseNo(barEl)
+//        val lyrics : List<String> = barElParser.parseLyrics(barEl)
+//        val fingerings : List<Fingering> = barElParser.parseChords(barEl)
+//            .map { fingeringService.findByChord(it).firstOrNull()
+//                ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND, "Fingering matching with chord '${it}' is not found") }
+//        val no : List<Long> = barElParser.parseNo(barEl)
+//
+//        return lyrics.mapIndexed { index, lyric ->
+//            Bar(null, no[index], lyric, fingerings[index].id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND), 0)
+//        }
 
-        return lyrics.mapIndexed { index, lyric ->
-            Bar(null, no[index], lyric, fingerings[index].id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND), 0)
-        }
+        return listOf()
     }
 }
