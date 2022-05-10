@@ -70,17 +70,7 @@ class BarServiceImpl(
     override fun parse(sheetId: Long, barEl: String): List<Bar>
     = this.parse(barEl).map { Bar(null, it.no, it.lyrics, it.fingeringId, sheetId) }
 
-    override fun parse(barEl: String): List<Bar> {
-//        val lyrics : List<String> = barElParser.parseLyrics(barEl)
-//        val fingerings : List<Fingering> = barElParser.parseChords(barEl)
-//            .map { fingeringService.findByChord(it).firstOrNull()
-//                ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND, "Fingering matching with chord '${it}' is not found") }
-//        val no : List<Long> = barElParser.parseNo(barEl)
-//
-//        return lyrics.mapIndexed { index, lyric ->
-//            Bar(null, no[index], lyric, fingerings[index].id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND), 0)
-//        }
-
-        return listOf()
-    }
+    override fun parse(barEl: String): List<Bar>
+    = barElParser.parse(barEl).map { Bar.of(it, fingeringService.findByChord(it.chord).firstOrNull()?.id
+            ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND, "Fingering mapped with chord '${it.chord}' is not found")) }
 }

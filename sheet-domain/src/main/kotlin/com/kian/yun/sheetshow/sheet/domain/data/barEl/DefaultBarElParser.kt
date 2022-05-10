@@ -37,5 +37,5 @@ class DefaultBarElParser : BarElParser {
     }
 
     private fun chordRegex() : Regex
-    = "<[a-zA-Z0-9#/]+>".toRegex()
+    = "<[a-zA-Z0-9#/]+>|<>".toRegex()
 }

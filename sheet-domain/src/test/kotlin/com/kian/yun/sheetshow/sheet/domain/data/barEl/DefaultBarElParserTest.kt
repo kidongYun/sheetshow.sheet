@@ -12,6 +12,44 @@ class DefaultBarElParserTest : BehaviorSpec() {
     private val defaultBarElParser : DefaultBarElParser = DefaultBarElParser()
 
     init {
+        given("|<>Hearbeats fast promises How brave Time") {
+            val barEl = "|<>Hearbeats fast promises How brave Time"
+
+            `when`("parse()") {
+                val result : List<BarDto.Parser> = defaultBarElParser.parse(barEl)
+
+                then("then") {
+                    val log = logger()
+                    log.info("result : $result")
+
+                    result.size shouldBe 1
+                    result[0].no shouldBe "1"
+                    result[0].lyrics shouldBe "Hearbeats fast promises How brave Time"
+                    result[0].chord shouldBe ""
+                }
+            }
+        }
+
+        given("|<>Hearbeats <C>fast promises How brave Time") {
+            val barEl = "|<>Hearbeats <C>fast promises How brave Time"
+
+            `when`("parse()") {
+                val result : List<BarDto.Parser> = defaultBarElParser.parse(barEl)
+
+                then("then") {
+                    val log = logger()
+                    log.info("result : $result")
+
+                    result.size shouldBe 2
+                    result.forEachIndexed { index, it ->
+                        it.no shouldBe listOf("1", "1")[index]
+                        it.lyrics shouldBe listOf("Hearbeats ", "fast promises How brave Time")[index]
+                        it.chord shouldBe listOf("", "C")[index]
+                    }
+                }
+            }
+        }
+
         given("|Hearbeats fast promises How brave Time") {
             val barEl = "|Hearbeats fast promises How brave Time"
 

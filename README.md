@@ -34,6 +34,10 @@
 ## 2022-05-06
 - Troubleshoot about SLF4J
 
+## 2022-05-11
+- refactor defaultBarElParser
+- troubleshoot defaultBarElParser
+
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl
 - query api with unknown target should be thrown unknown target exception.

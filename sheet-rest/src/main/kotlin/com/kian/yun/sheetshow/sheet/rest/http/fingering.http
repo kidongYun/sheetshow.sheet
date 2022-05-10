@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "type" : "guitar",
-  "chord" : "B#7/Em",
+  "chord" : "",
   "notes" : [
     {
       "line" : "5",
