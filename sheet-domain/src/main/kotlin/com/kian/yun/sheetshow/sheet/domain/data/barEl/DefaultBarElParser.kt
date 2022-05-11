@@ -10,31 +10,19 @@ import org.springframework.stereotype.Component
 class DefaultBarElParser : BarElParser {
     override fun parse(barEl: String): List<BarDto.Parser>
     = parseByBar(barEl).entries
-        .also {
-            val log = logger()
-            log.info("it : $it")
-        }
-        .associate { it.key to parseByChord(it.value) }
-        .also {
-            val log = logger()
-            log.info("it : $it")
-        }.entries
+        .associate { it.key to parseByChord(it.value) }.entries
         .map { bar -> bar.value
             .map { chord -> BarDto.Parser(bar.key.toString(), chord.second, chord.first) }
         }.flatten()
 
     private fun parseByChord(barEl: String) : List<Pair<String, String>> {
-        val lyrics : List<String> = barEl.split(chordRegex()).drop(1)
-        val chords : List<String> = chordRegex().findAll(barEl).map { it.value.substring(1, it.value.length-1) }.toList()
+        val target : String = if(isNotStartedWithChord(barEl)) { "<>$barEl" } else { barEl }
 
-        val log = logger()
-        log.info("lyrics : $lyrics")
-        log.info("lyrics.size : '${lyrics.size}'")
-        log.info("chords : '$chords'")
-        log.info("chords.size : '${chords.size}'")
+        val lyrics : List<String> = target.split(chordRegex()).drop(1)
+        val chords : List<String> = chordRegex().findAll(target).map { it.value.substring(1, it.value.length-1) }.toList()
 
         if(lyrics.isEmpty() && chords.isEmpty()) {
-            return listOf("" to barEl)
+            return listOf("" to target)
         }
 
         return chords
@@ -49,10 +37,8 @@ class DefaultBarElParser : BarElParser {
         if(!barEl.contains("|")) {
             throw SheetException(SheetCode.VERTICAL_LINE_IN_NOT_EXISTED, "barEl '$barEl' doesn't have '|' letter")
         }
-        val splitByBar : List<String> = barEl.split("|")
 
-        val log = logger()
-        log.info("splitByBar : $splitByBar")
+        val splitByBar : List<String> = barEl.split("|")
 
         return splitByBar
             .subList(1, splitByBar.size)
@@ -62,4 +48,7 @@ class DefaultBarElParser : BarElParser {
 
     private fun chordRegex() : Regex
     = "<[a-zA-Z0-9#/]+>|<>".toRegex()
+
+    private fun isNotStartedWithChord(src : String) : Boolean
+    = src.first() != '<'
 }
