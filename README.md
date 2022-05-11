@@ -37,6 +37,8 @@
 ## 2022-05-11
 - refactor defaultBarElParser
 - troubleshoot defaultBarElParser
+- troubleshoot the situation the key is diminished when chord key is same with others
+- troubleshoot error can't find sheetexception class in test
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl

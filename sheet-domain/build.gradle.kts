@@ -22,7 +22,7 @@ repositories {
 
 dependencies {
     compileOnly(project(":sheet-common"))
-    testCompileOnly(project(":sheet-common"))
+    testImplementation(project(":sheet-common"))
 
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
