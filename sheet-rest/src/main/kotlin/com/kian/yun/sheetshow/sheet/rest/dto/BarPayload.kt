@@ -3,7 +3,7 @@ package com.kian.yun.sheetshow.sheet.rest.dto
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.kian.yun.sheetshow.sheet.domain.data.Chord
 
-class BarDto {
+class BarPayload {
     data class ReqPost(
         val no: String,
         val lyrics: String,

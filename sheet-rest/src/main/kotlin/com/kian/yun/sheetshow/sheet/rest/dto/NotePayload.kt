@@ -1,6 +1,6 @@
 package com.kian.yun.sheetshow.sheet.rest.dto
 
-class NoteDto {
+class NotePayload {
     data class ReqPost(
         val line: String,
         val space: String,

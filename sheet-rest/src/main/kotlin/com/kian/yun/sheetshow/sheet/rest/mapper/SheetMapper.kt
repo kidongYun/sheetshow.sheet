@@ -5,45 +5,44 @@ import com.kian.yun.sheetshow.sheet.common.exception.SheetException
 import com.kian.yun.sheetshow.sheet.common.util.toLong
 import com.kian.yun.sheetshow.sheet.domain.entity.Bar
 import com.kian.yun.sheetshow.sheet.domain.entity.Fingering
-import com.kian.yun.sheetshow.sheet.domain.data.Note
 import com.kian.yun.sheetshow.sheet.domain.entity.Sheet
-import com.kian.yun.sheetshow.sheet.rest.dto.SheetDto
+import com.kian.yun.sheetshow.sheet.rest.dto.SheetPayload
 import org.springframework.stereotype.Component
 
 @Component
 class SheetMapper {
-    fun ofEntity(src: SheetDto.ReqPost) : Sheet
+    fun ofEntity(src: SheetPayload.ReqPost) : Sheet
     = Sheet(null, src.name, src.author, src.creatorEmail)
 
-    fun ofEntity(src: SheetDto.Detail.ReqPost) : Sheet
+    fun ofEntity(src: SheetPayload.Detail.ReqPost) : Sheet
     = Sheet(null, src.name, src.author, src.creatorEmail)
 
-    fun ofEntity(id: String, src: SheetDto.ReqPut) : Sheet
+    fun ofEntity(id: String, src: SheetPayload.ReqPut) : Sheet
     = Sheet(toLong(id), src.name, src.author, src.creatorEmail)
 
-    fun ofEntity(id: String, src: SheetDto.Detail.ReqPut) : Sheet
+    fun ofEntity(id: String, src: SheetPayload.Detail.ReqPut) : Sheet
     = Sheet(toLong(id), src.name, src.author, src.creatorEmail)
 
-    fun ofRes(src: Sheet) : SheetDto.Res {
+    fun ofRes(src: Sheet) : SheetPayload.Res {
         val id: Long = src.id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
-        return SheetDto.Res(id.toString(), src.name, src.author, src.creatorEmail)
+        return SheetPayload.Res(id.toString(), src.name, src.author, src.creatorEmail)
     }
 
-    fun ofDetailRes(sheet: Sheet, bars: List<Bar>, fingerings: List<Fingering>) : SheetDto.Detail.Res {
+    fun ofDetailRes(sheet: Sheet, bars: List<Bar>, fingerings: List<Fingering>) : SheetPayload.Detail.Res {
         val sheetId: Long = sheet.id ?: throw SheetException(SheetCode.DATA_IS_NOT_FOUND)
-        return SheetDto.Detail.Res(
+        return SheetPayload.Detail.Res(
             sheetId.toString(),
             sheet.name,
             sheet.author,
             sheet.creatorEmail,
             bars.mapIndexed { index, bar ->
-                SheetDto.Detail.Bar(
+                SheetPayload.Detail.Bar(
                     bar.no.toString(),
                     bar.lyrics,
-                    SheetDto.Detail.Fingering(
+                    SheetPayload.Detail.Fingering(
                         fingerings[index].type,
                         fingerings[index].chord,
-                        fingerings[index].notes.map { SheetDto.Detail.Note(it.line.toString(), it.space.toString()) }))
+                        fingerings[index].notes.map { SheetPayload.Detail.Note(it.line.toString(), it.space.toString()) }))
             })
     }
 }

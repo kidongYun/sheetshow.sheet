@@ -1,6 +1,6 @@
 package com.kian.yun.sheetshow.sheet.rest.dto
 
-class FingeringDto {
+class FingeringPayload {
     data class ReqPost(
         val type: String,
         val chord: String,

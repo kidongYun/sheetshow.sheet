@@ -39,6 +39,7 @@
 - troubleshoot defaultBarElParser
 - troubleshoot the situation the key is diminished when chord key is same with others
 - troubleshoot error can't find sheetexception class in test
+- dto file in rest module should be change named payload
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl

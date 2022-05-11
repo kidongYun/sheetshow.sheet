@@ -11,7 +11,7 @@ import com.kian.yun.sheetshow.sheet.domain.service.BarService
 import com.kian.yun.sheetshow.sheet.domain.service.FingeringService
 import com.kian.yun.sheetshow.sheet.domain.service.SheetService
 import com.kian.yun.sheetshow.sheet.rest.dto.Filterable
-import com.kian.yun.sheetshow.sheet.rest.dto.SheetDto
+import com.kian.yun.sheetshow.sheet.rest.dto.SheetPayload
 import com.kian.yun.sheetshow.sheet.rest.mapper.FilterableMapper
 import com.kian.yun.sheetshow.sheet.rest.mapper.SheetMapper
 import org.springframework.data.domain.Pageable
@@ -28,19 +28,19 @@ class SheetController(
     private val fingeringService: FingeringService,
 ) : SheetSpec {
 
-    override fun post(request: SheetDto.ReqPost): Response<Long>
+    override fun post(request: SheetPayload.ReqPost): Response<Long>
     = Response.ofSuccess(sheetService.save(sheetMapper.ofEntity(request)))
 
-    override fun postDetail(request: SheetDto.Detail.ReqPost): Response<Long>
+    override fun postDetail(request: SheetPayload.Detail.ReqPost): Response<Long>
     = Response.ofSuccess(sheetService.saveDetail(sheetMapper.ofEntity(request), request.barEl))
 
-    override fun get(id: String): Response<SheetDto.Res>
+    override fun get(id: String): Response<SheetPayload.Res>
     = Response.ofSuccess(sheetMapper.ofRes(sheetService.findById(toLong(id))))
 
-    override fun getList(pageable: Pageable): Response<List<SheetDto.Res>>
+    override fun getList(pageable: Pageable): Response<List<SheetPayload.Res>>
     = Response.ofSuccess(sheetService.find(pageable).map { sheetMapper.ofRes(it) }.toList())
 
-    override fun getDetail(id: String): Response<SheetDto.Detail.Res> {
+    override fun getDetail(id: String): Response<SheetPayload.Detail.Res> {
         val sheet: Sheet = sheetService.findById(toLong(id))
         val bars: List<Bar> = barService.query(SimpleCondition.of("sheetId", listOf(sheet.id.toString()), QueryOptions.EQUAL))
         val fingering: List<Fingering> = bars.map { fingeringService.findById(it.fingeringId) }
@@ -48,10 +48,10 @@ class SheetController(
         return Response.ofSuccess(sheetMapper.ofDetailRes(sheet, bars, fingering))
     }
 
-    override fun put(id: String, request: SheetDto.ReqPut): Response<SheetDto.Res>
+    override fun put(id: String, request: SheetPayload.ReqPut): Response<SheetPayload.Res>
     = Response.ofSuccess(sheetMapper.ofRes(sheetService.update(sheetMapper.ofEntity(id, request))))
 
-    override fun putDetail(id: String, request: SheetDto.Detail.ReqPut): Response<Long>
+    override fun putDetail(id: String, request: SheetPayload.Detail.ReqPut): Response<Long>
     = Response.ofSuccess(sheetService.updateDetail(sheetMapper.ofEntity(id, request), request.barEl))
 
     override fun delete(id: String): Response<Void> {
@@ -59,6 +59,6 @@ class SheetController(
         return Response.ofSuccess()
     }
 
-    override fun query(pageable: Pageable, filterable: Filterable): Response<List<SheetDto.Res>>
+    override fun query(pageable: Pageable, filterable: Filterable): Response<List<SheetPayload.Res>>
     = Response.ofSuccess(sheetService.query(filterableMapper.ofDomain(filterable), pageable).map { sheetMapper.ofRes(it) })
 }
