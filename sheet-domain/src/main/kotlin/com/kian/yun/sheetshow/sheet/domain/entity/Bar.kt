@@ -2,10 +2,7 @@ package com.kian.yun.sheetshow.sheet.domain.entity
 
 import com.kian.yun.sheetshow.sheet.common.util.toLong
 import com.kian.yun.sheetshow.sheet.domain.dto.BarDto
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 class Bar(
@@ -15,6 +12,7 @@ class Bar(
 
     val no: Long,
 
+    @Column(length = 2000)
     val lyrics: String,
 
     val fingeringId: Long,

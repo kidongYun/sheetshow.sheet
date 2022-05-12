@@ -19,9 +19,6 @@ class DefaultBarElParserTest : BehaviorSpec() {
                 val result : List<BarDto.Parser> = defaultBarElParser.parse(barEl)
 
                 then("then") {
-                    val log = logger()
-                    log.info("result : $result")
-
                     result.size shouldBe 2
                     result.forEachIndexed { index, it ->
                         it.no shouldBe "1"
@@ -54,9 +51,6 @@ class DefaultBarElParserTest : BehaviorSpec() {
                 val result : List<BarDto.Parser> = defaultBarElParser.parse(barEl)
 
                 then("then") {
-                    val log = logger()
-                    log.info("result : $result")
-
                     result.size shouldBe 2
                     result.forEachIndexed { index, it ->
                         it.no shouldBe listOf("1", "1")[index]
@@ -166,9 +160,6 @@ class DefaultBarElParserTest : BehaviorSpec() {
                 val result = defaultBarElParser.parse(barEl)
 
                 then("bar 개수는 코드의 개수만큼 생겨야 한다") {
-                    val log = logger()
-                    log.info("result : $result")
-
                     result.size shouldBe 22
                     result.forEachIndexed { index, it ->
 

@@ -27,10 +27,6 @@ class DefaultBarElParser : BarElParser {
 
         return chords
             .mapIndexed { index, it -> it to lyrics[index] }
-            .also {
-                val log = logger()
-                log.info("it : $it")
-            }
     }
 
     private fun parseByBar(barEl: String) : Map<Long, String> {

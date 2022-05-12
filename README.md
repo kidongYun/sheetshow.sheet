@@ -62,14 +62,14 @@
 
 > docker images
 
-> docker run --name sheetshow-container -e MYSQL_ROOT_PASSWORD=sheetshow -d -p 3306:3306 mysql:latest
+> docker run --name sheetshow-sheet-mysql-container -e MYSQL_ROOT_PASSWORD=sheet -d -p 3306:3306 mysql:latest
 
-> docker exec -it sheetshow-container bash
+> docker exec -it sheetshow-sheet-mysql-container bash
 
 > mysql -u root -p
 Enter password : <password>
 
-> CREATE DATABASE sheetshow;
+> CREATE DATABASE sheetshow_sheet;
 ```
 
 ### REDIS
