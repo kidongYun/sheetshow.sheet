@@ -40,6 +40,10 @@
 - troubleshoot the situation the key is diminished when chord key is same with others
 - troubleshoot error can't find sheetexception class in test
 - dto file in rest module should be change named payload
+- 
+## 2022-05-14
+- configure Dockerfile
+- configure docker-compose
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl
@@ -54,6 +58,16 @@
 - Troubleshoot GET sheet list api return empty list.
 
 ## CONFIGURATION PROJECT
+
+### DOCKER-COMPOSE
+
+```
+// launch application
+> docker-compose up
+
+// stop application
+> docker-compose down
+```
 
 ### MYSQL 
 
