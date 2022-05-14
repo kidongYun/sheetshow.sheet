@@ -51,6 +51,7 @@ class BarServiceImpl(
         barRepository.delete(this.findById(id))
     }
 
+    @Transactional
     override fun deleteAllBySheetId(sheetId: Long) {
          barRepository.deleteAllBySheetId(sheetId)
     }

@@ -44,6 +44,8 @@
 ## 2022-05-14
 - configure Dockerfile
 - configure docker-compose
+- troubleshoot profile issue in docker image
+- troubleshoot test error with illegalstateexception
 
 ## TODO
 - someday change qclass as a normal class type not querydsl class type. it makes the dependency with querydsl
@@ -63,10 +65,18 @@
 
 ```
 // launch application
-> docker-compose up
+> docker-compose --env-file ./config/.env.test up
 
 // stop application
 > docker-compose down
+```
+
+### DOCKER BUILD AND RUN
+
+```
+> docker build -t sheetshow-sheet:1.0.7-SNAPSHOT --build-arg SPRING_PROFILES_ACTIVE=local .
+
+> docker run sheetshow-sheet:1.0.7-SNAPSHOT
 ```
 
 ### MYSQL 
