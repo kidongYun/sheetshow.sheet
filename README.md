@@ -58,6 +58,7 @@
 - implements fingering and chord instances
 - sheet should have new column named 'status'
 - Troubleshoot GET sheet list api return empty list.
+- change profile name local to test
 
 ## CONFIGURATION PROJECT
 
