@@ -1,4 +1,6 @@
-cd ~/app
+cd ~/sheetshow.sheet/app
+
+chmod +x ./deploy.sh
 
 git pull origin test
 

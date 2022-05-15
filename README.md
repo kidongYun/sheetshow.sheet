@@ -62,6 +62,14 @@
 
 ## CONFIGURATION PROJECT
 
+```
+> mkdir ./app
+
+> cd ./app
+
+> git clone -b test \https://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@github.com/kidongYun/sheetshow.sheet.git ./
+```
+
 ### DOCKER-COMPOSE
 
 ```
