@@ -8,4 +8,4 @@ sudo ./gradlew build
 
 sudo docker build -t sheetshow-sheet --build-arg SPRING_PROFILES_ACTIVE=local .
 
-sudo docker-compose up
+sudo docker-compose -d up
